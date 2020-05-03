@@ -1,0 +1,251 @@
+\usepackage{amsmath,amssymb, a4, verbatim}
+\usepackage[german]{babel}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} % ueoeaess
+\usepackage{listings} % fuer inline codelistings
+\lstset{%
+    basicstyle=\ttfamily,    % the size of the fonts
+    columns=fixed,            % anything else is horrifying
+    showspaces=false,        % show spaces using underscores?
+    showstringspaces=false,    % underline spaces within strings?
+    showtabs=false,            % show tabs within strings?
+    xleftmargin=1.5em,        % left margin space
+}
+\lstdefinestyle{inline}{basicstyle=\ttfamily}
+\newcommand{\listline}[1]{\lstinline[style=inline]!#1!}
+
+\usepackage{caption}
+\newcommand{\tinycaption}[1]{\captionsetup{labelformat=empty}\caption{#1}}
+\captionsetup{belowskip=-10pt, aboveskip=5pt}
+
+%\usepackage{color}
+%\usepackage{epsfig} % eps
+\usepackage{graphicx} % eps
+%\usepackage[shortcuts]{extdash}
+%\usepackage{dsfont}
+%\usepackage{epstopdf} % eps
+%\usepackage[pdf]{pstricks} % eps
+%\usepackage{auto-pst-pdf}
+\usepackage{mathtools}
+\usepackage{dsfont} % $ \mathds{1} $
+\usepackage{icomma}
+\usepackage{tikz}
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.8}
+\usepackage[bottom]{footmisc} % put footnotes at the bottom of page
+\usepackage{nicefrac} % fuer brueche die aussehen wie prozentzeichen
+% \usepackage{ps2pdf}
+\usetikzlibrary{automata,positioning}
+
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+\usepackage{multicol}
+\usepackage{wrapfig} % make stuff float
+\usepackage{placeins} % stop stuff from floating
+\usepackage{seqsplit} % very long numbers
+\usepackage{framed} % begin{framed}
+
+%  Headings and Footings :
+\usepackage{fancyhdr}
+\headheight20pt
+\lhead{\lheadcontent}
+
+\chead{}
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{.4pt}
+\lfoot{\today}
+\cfoot{}
+\rfoot{\input{rfoot.tex}}
+\renewcommand{\footrulewidth}{.4pt}
+
+\usepackage[all=tight, charwidths=normal, wordspacing=normal, mathspacing=normal]{savetrees}
+
+\usepackage{titlesec}
+\titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
+\titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
+\titlespacing*{\subsubsection}{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex}
+
+
+\usepackage{enumitem}
+\setitemize{itemsep=5pt,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+\textwidth16.5cm
+\oddsidemargin0.cm
+\evensidemargin0.cm
+
+\headsep20pt
+
+\usepackage{calc}
+\newlength{\afourwidth}
+\setlength{\afourwidth}{210mm}
+
+\renewcommand{\baselinestretch}{1}
+
+%disallow hyphenation:
+\hyphenpenalty=1000
+\exhyphenpenalty=1500
+
+\usepackage[]{geometry}
+\geometry{
+    a4paper, %landscape,
+    %paperheight=297mm, paperwidth=210mm,
+    paperheight=297mm, paperwidth=\afourwidth*\real{\AfourWidthMult}, % multicols(2) but one one page width
+    left=\somedistanceLeft,
+    right=\somedistanceLeft,
+    top=\somedistanceTop,
+    bottom=\somedistanceTop
+}
+
+\parindent0pt
+\usepackage{parskip}
+
+\newcommand{\R}{ {\mathbb R} }
+\newcommand{\Z}{ {\mathbb Z} }
+\newcommand{\C}{ {\mathbb C} }
+\newcommand{\e}{ {\,\mathrm e\,} }
+\newcommand{\imag}{ {\mathrm i} }
+\newcommand{\jmag}{ {\mathrm j} }
+\newcommand{\1}{ {\mathds{1}} }
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\xt}{\tilde{x}}
+\newcommand{\dotleq}{\dot{\leq}}
+\newcommand{\m}{\hphantom{-} }
+\newcommand{\grad}[1]{\mathop{\text{grad}}\nolimits#1}
+\newcommand{\dashfill}[1]{\vspace{11pt}\def\dashfill{\cleaders\hbox{#1}\hfill}\hbox to \hsize{\dashfill\hfil}\vspace{11pt}}
+\newcommand{\scdot}{\!\cdot\!}
+\newcommand{\sig}{\text{signum}}
+\newcommand{\rot}{}
+\newcommand{\Jacobi}[1]{\mathop{\mathrm{J}}\nolimits#1}
+\newcommand{\laplace}{\mathop{{}\Delta}\nolimits}
+\newcommand{\td}{\,\text{d}}
+\newcommand{\kommentar}[1]{}
+\newcommand{\Real}[1]{\mathop{{}\mathrm{Re}}\left\{#1\right\}}
+
+% https://tex.stackexchange.com/questions/37080/how-can-i-indent-a-block-of-text-for-a-specified-amount/37084
+\usepackage{scrextend}
+
+% https://tex.stackexchange.com/questions/256894/how-to-make-underbrace-label-text-wrap-at-brace-width
+\def\underbraceWrap#1_#2{%
+    \setbox0=\hbox{$\displaystyle#1$}%
+    \underbrace{\centering #1}_{\parbox[t]{\the\wd0}{\centering{#2}}}%
+}
+
+\everydisplay{\ifdim\predisplaysize=-\maxdimen \predisplaysize=\hsize \fi}
+\usepackage{nccmath}
+\usepackage{etoolbox}
+
+% https://tex.stackexchange.com/questions/238505/change-size-of-font-of-subscript-of-underbrace-in-align-environment/238510#238510
+\usepackage{mathtools}
+\usepackage{relsize}
+
+% https://tex.stackexchange.com/questions/80378/red-squiggly-imitation
+\usepackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
+
+\newcommand{\mcomm}[1][1fil]{\hskip 1em plus #1 minus 1em \quad\vert\; }
+
+\usepackage{setspace}
+
+% https://tex.stackexchange.com/questions/57338/how-can-i-allow-gather-to-break-between-pages
+\allowdisplaybreaks
+
+%\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+%\numberwithin{equation}{section}
+
+% https://tex.stackexchange.com/questions/264394/equation-number-syntax-section-subsection-subsubsection-equationnu
+% \renewcommand{\theequation}{%
+% \ifnum\value{subsection} > 0
+% \ifnum\value{subsubsection} > 0
+% \thesubsubsection--\arabic{equation}%
+% \else
+% \thesubsection--\arabic{equation}%
+% \fi
+% \else
+% \thesection--\arabic{equation}%
+% \fi
+% }
+\renewcommand{\theequation}{%
+\ifnum\value{subsection} > 0
+\ifnum\value{subsubsection} > 0
+\thesubsubsection--\arabic{equation}%
+\else
+\thesubsection--\arabic{equation}%
+\fi
+\else
+\thesection--\arabic{equation}%
+\fi
+}
+
+% https://tex.stackexchange.com/questions/207532/reset-equation-numbering-after-each-section
+\usepackage{chngcntr}
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\counterwithin*{equation}{subsubsection}
+
+% define text and background-color
+\usepackage{xcolor}
+\definecolor{bgcolor}{RGB}{33, 33, 33}
+\pagecolor{bgcolor}
+\definecolor{txcolor}{RGB}{220, 220, 220}
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{white}}
+
+% https://tex.stackexchange.com/questions/42507/wrapfigure-cuts-off-images-at-the-end-of-the-page
+% positions wrapfigure not too low on page
+\makeatletter
+\newcommand{\checkheight}[1]{%
+  \par \penalty-100\begingroup%
+  \setbox8=\hbox{#1}%
+  \setlength{\dimen@}{\ht8}%
+  \dimen@ii\pagegoal \advance\dimen@ii-\pagetotal
+  \ifdim \dimen@>\dimen@ii
+    \break
+  \fi\endgroup}
+\makeatother
+
+\usepackage{blindtext}
+
+% https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
+% https://github.com/joshinils/tex/blob/master/greek.tex
+\usepackage{newtxtext}% For text font
+\usepackage{newtxmath}
+
+\usepackage{upgreek}
+
+\renewcommand{\alpha  }{\mathit{\alphaup}   }
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi    }{\varphi    }
+\renewcommand{\theta  }{\upvartheta}
+\renewcommand{\gamma  }{\gammaup   }
+\renewcommand{\sigma  }{\sigmaup   }
+\renewcommand{\lambda }{\lambdaup  }
+
+\DeclareSymbolFont{largesymbolscmr}{OMX}{cmex}{m}{n}
+\DeclareMathSymbol{\intop}{\mathop}{largesymbolscmr}{"52}
+\DeclareRobustCommand\int{\intop\nolimits}
+
+% https://tex.stackexchange.com/questions/3622/best-way-to-generate-nice-function-plots-in-latex
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\DeclareSymbolFont{largeesint}{U}{esint}{m}{n}
+\DeclareMathSymbol{\cmriintop}{\mathop}{largeesint}{"03}
+\DeclareRobustCommand\iint{\cmriintop\nolimits}
+
+\usepackage{fonttable}
+
+\usepackage[range-phrase=\text{ bis },exponent-product=ep789, inter-unit-product=iup456, output-decimal-marker=odm123]{siunitx}
+\sisetup{locale = DE}
+
+% makes nested parentheses bigger
+\delimitershortfall=0pt
+
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
