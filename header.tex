@@ -49,7 +49,7 @@
 
 %  Headings and Footings :
 \usepackage{fancyhdr}
-\headheight20pt
+%\headheight20pt
 \lhead{\lheadcontent}
 
 \chead{}
@@ -71,7 +71,6 @@
 \usepackage{enumitem}
 \setitemize{itemsep=5pt,topsep=0pt,parsep=0pt,partopsep=0pt}
 
-\textwidth16.5cm
 \oddsidemargin0.cm
 \evensidemargin0.cm
 
@@ -86,8 +85,8 @@
 %disallow hyphenation:
 \hyphenpenalty=1000
 \exhyphenpenalty=1500
-
 \usepackage[]{geometry}
+\setlength\textheight{10cm}
 \geometry{
     a4paper, %landscape,
     %paperheight=297mm, paperwidth=210mm,
@@ -95,7 +94,9 @@
     left=\somedistanceLeft,
     right=\somedistanceLeft,
     top=\somedistanceTop,
-    bottom=\somedistanceTop
+    bottom=\somedistanceTop,
+    headheight=0pt,
+    footskip=15pt,
 }
 
 \parindent0pt
@@ -104,6 +105,7 @@
 \newcommand{\R}{ {\mathbb R} }
 \newcommand{\Z}{ {\mathbb Z} }
 \newcommand{\C}{ {\mathbb C} }
+\newcommand{\N}{ {\mathbb N} }
 \newcommand{\e}{ {\,\mathrm e\,} }
 \newcommand{\imag}{ {\mathrm i} }
 \newcommand{\jmag}{ {\mathrm j} }
@@ -113,16 +115,28 @@
 \newcommand{\xt}{\tilde{x}}
 \newcommand{\dotleq}{\dot{\leq}}
 \newcommand{\m}{\hphantom{-} }
-\newcommand{\grad}[1]{\mathop{\text{grad}}\nolimits#1}
 \newcommand{\dashfill}[1]{\vspace{11pt}\def\dashfill{\cleaders\hbox{#1}\hfill}\hbox to \hsize{\dashfill\hfil}\vspace{11pt}}
 \newcommand{\scdot}{\!\cdot\!}
 \newcommand{\sig}{\text{signum}}
-\newcommand{\rot}{}
 \newcommand{\Jacobi}[1]{\mathop{\mathrm{J}}\nolimits#1}
-\newcommand{\laplace}{\mathop{{}\Delta}\nolimits}
+\newcommand{\Hess}[1]{\mathop{\mathrm{H}}\nolimits#1}
+\newcommand{\laplace}[1]{\mathop{{}\Delta}\nolimits#1}
 \newcommand{\td}{\,\text{d}}
 \newcommand{\kommentar}[1]{}
-\newcommand{\Real}[1]{\mathop{{}\mathrm{Re}}\left\{#1\right\}}
+\newcommand{\Real}[1]{\mathrm{Re}\!\left\{#1\right\}}
+\newcommand{\Spur}[1]{\mathrm{Spur}\!\left(#1\right)}
+\newcommand{\skalarprod}[2]{\left\langle#1;#2\right\rangle}
+\newcommand{\scalarprod}[2]{\left\langle#1;#2\right\rangle}
+\newcommand{\kreuzprod}[2]{#1\times#2}
+\newcommand{\crossprod}[2]{\kreuzprod{#1}{#2}}
+
+% a little altered: https://tex.stackexchange.com/questions/58628/optional-argument-for-newcommand
+\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
+\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
+\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\!\left(#1\right)}}
+
+\newcommand{\quadfil}{\hskip 1em minus 1em}
+\newcommand{\qquadfil}{\hskip 2em minus 2em}
 
 % https://tex.stackexchange.com/questions/37080/how-can-i-indent-a-block-of-text-for-a-specified-amount/37084
 \usepackage{scrextend}
@@ -136,6 +150,9 @@
 \everydisplay{\ifdim\predisplaysize=-\maxdimen \predisplaysize=\hsize \fi}
 \usepackage{nccmath}
 \usepackage{etoolbox}
+% https://tex.stackexchange.com/a/239589/202560
+\AtBeginEnvironment{pmatrix}{\everymath{\displaystyle}}
+\AtBeginEnvironment{bmatrix}{\everymath{\displaystyle}}
 
 % https://tex.stackexchange.com/questions/238505/change-size-of-font-of-subscript-of-underbrace-in-align-environment/238510#238510
 \usepackage{mathtools}
@@ -186,15 +203,22 @@
 
 % define text and background-color
 \usepackage{xcolor}
-\definecolor{bgcolor}{RGB}{33, 33, 33}
+\xdefinecolor{bgcolor}{RGB}{33, 33, 33}
+\xdefinecolor{txcolor}{RGB}{220, 220, 220}
+\xdefinecolor{dark_red}{RGB}{165, 27, 11}
 \pagecolor{bgcolor}
-\definecolor{txcolor}{RGB}{220, 220, 220}
 \makeatletter
 \newcommand{\globalcolor}[1]{%
   \color{#1}\global\let\default@color\current@color
 }
 \makeatother
-\AtBeginDocument{\globalcolor{white}}
+\AtBeginDocument{\globalcolor{txcolor}}
+
+\newcommand{\frage}[1]{\colorbox{dark_red}{#1}}
+\xdefinecolor{HKS51}{rgb}{0,0.593,0.629}             % HKS51, BHT türkis
+\xdefinecolor{HKS13}{rgb}{0.937,0.094,0.117}         % HKS13, BHT rot
+\xdefinecolor{HKS51-dark70}{rgb}{0,0.198,0.20 }      % TFH türkis abgedunkelt
+
 
 % https://tex.stackexchange.com/questions/42507/wrapfigure-cuts-off-images-at-the-end-of-the-page
 % positions wrapfigure not too low on page
@@ -209,6 +233,20 @@
   \fi\endgroup}
 \makeatother
 
+% https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
+\usepackage[most]{tcolorbox}
+\tcbset{colback=HKS51!5!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+}
+
 \usepackage{blindtext}
 
 % https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
@@ -217,10 +255,11 @@
 \usepackage{newtxmath}
 
 \usepackage{upgreek}
-
-\renewcommand{\alpha  }{\mathit{\alphaup}   }
+%\usepackage{unicode-math}
+%\unimathsetup{math-style=french}
+\renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
-\renewcommand{\phi    }{\varphi    }
+\renewcommand{\phi    }{\upvarphi  }
 \renewcommand{\theta  }{\upvartheta}
 \renewcommand{\gamma  }{\gammaup   }
 \renewcommand{\sigma  }{\sigmaup   }
