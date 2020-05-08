@@ -2,6 +2,10 @@
 \usepackage[german]{babel}
 %\usepackage[latin1]{inputenc}
 \usepackage[utf8]{inputenc} % ueoeaess
+
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
 \usepackage{listings} % fuer inline codelistings
 \lstset{%
     basicstyle=\ttfamily,    % the size of the fonts
@@ -88,14 +92,15 @@
 \usepackage[]{geometry}
 \setlength\textheight{10cm}
 \geometry{
-    a4paper, %landscape,
+    a4paper,
+    \pageOrientation,
     %paperheight=297mm, paperwidth=210mm,
     paperheight=297mm, paperwidth=\afourwidth*\real{\AfourWidthMult}, % multicols(2) but one one page width
     left=\somedistanceLeft,
     right=\somedistanceLeft,
     top=\somedistanceTop,
     bottom=\somedistanceTop,
-    headheight=0pt,
+    headheight=15pt,
     footskip=15pt,
 }
 
@@ -107,8 +112,8 @@
 \newcommand{\C}{ {\mathbb C} }
 \newcommand{\N}{ {\mathbb N} }
 \newcommand{\e}{ {\,\mathrm e\,} }
-\newcommand{\imag}{ {\mathrm i} }
-\newcommand{\jmag}{ {\mathrm j} }
+\newcommand{\imag}{\/{\mathrm i}\/}
+\newcommand{\jmag}{\/{\mathrm j}\/}
 \newcommand{\1}{ {\mathds{1}} }
 \newcommand{\abs}[1]{\lvert#1\rvert}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
@@ -203,8 +208,8 @@
 
 % define text and background-color
 \usepackage{xcolor}
-\xdefinecolor{bgcolor}{RGB}{33, 33, 33}
-\xdefinecolor{txcolor}{RGB}{220, 220, 220}
+%\xdefinecolor{bgcolor}{RGB}{33, 33, 33}
+%\xdefinecolor{txcolor}{RGB}{220, 220, 220}
 \xdefinecolor{dark_red}{RGB}{165, 27, 11}
 \pagecolor{bgcolor}
 \makeatletter
@@ -235,7 +240,9 @@
 
 % https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
 \usepackage[most]{tcolorbox}
-\tcbset{colback=HKS51!5!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+\newtcolorbox{aufgabe}{%
+%\tcbset{
+    colback=HKS51!5!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
@@ -245,8 +252,42 @@
     right  =0pt,
     top    =0pt,
     bottom =0pt,
+    breakable=true,
 }
 
+\newtcolorbox{alteAufgabe}{%
+    colback=gray!25!bgcolor, 
+    colframe=gray!25!bgcolor,
+    coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =0pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{nebenrechnung}{%
+    colback=bgcolor, 
+    colframe=gray!25!bgcolor,
+    coltext=txcolor,
+    coltitle=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+    colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=3pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title={Nebenrechnung},
+}
 \usepackage{blindtext}
 
 % https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
@@ -259,7 +300,7 @@
 %\unimathsetup{math-style=french}
 \renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
-\renewcommand{\phi    }{\upvarphi  }
+\renewcommand{\phi    }{\varphi    }
 \renewcommand{\theta  }{\upvartheta}
 \renewcommand{\gamma  }{\gammaup   }
 \renewcommand{\sigma  }{\sigmaup   }
@@ -279,7 +320,7 @@
 
 \usepackage{fonttable}
 
-\usepackage[range-phrase=\text{ bis },exponent-product=ep789, inter-unit-product=iup456, output-decimal-marker=odm123]{siunitx}
+\usepackage[range-phrase=\text{ bis },exponent-product=\cdot, per-mode=symbol, output-decimal-marker={,}]{siunitx}
 \sisetup{locale = DE}
 
 % makes nested parentheses bigger
@@ -288,3 +329,7 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 
+% https://tex.stackexchange.com/questions/339682/how-to-really-solve-the-problem-of-underfull-hbox-when-typesetting-url-in-f
+\Urlmuskip=0mu plus 10mu
+
+\usepackage{cancel}
