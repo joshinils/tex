@@ -123,7 +123,6 @@
 \newcommand{\dashfill}[1]{\vspace{11pt}\def\dashfill{\cleaders\hbox{#1}\hfill}\hbox to \hsize{\dashfill\hfil}\vspace{11pt}}
 \newcommand{\scdot}{\!\cdot\!}
 \newcommand{\sig}{\text{signum}}
-\newcommand{\Jacobi}[1]{\mathop{\mathrm{J}}\nolimits#1}
 \newcommand{\Hess}[1]{\mathop{\mathrm{H}}\nolimits#1}
 \newcommand{\laplace}[1]{\mathop{{}\Delta}\nolimits#1}
 \newcommand{\td}{\,\text{d}}
@@ -139,6 +138,21 @@
 \renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
 \newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
 \newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\!\left(#1\right)}}
+
+% https://tex.stackexchange.com/questions/543318/command-with-optional-argument-in-parentheses-and-subscript
+\usepackage{xparse}
+\NewDocumentCommand{\Jacobi}{e{_}ge{_}}{%
+    \operatorname{{}J}\nolimits\mathopen{}%
+    \IfValueT{#1}{_{#1}}\IfValueT{#3}{_{#3}}%
+    \IfValueT{#2}{\left(#2\right)}%
+    \mathclose{}
+}
+
+\newcommand{\test}[1]
+{
+    \operatorname{\mathrm{T}}
+    \ifthenelse{\equal{#1}{}}{#1}{(#1)}
+}
 
 \newcommand{\quadfil}{\hskip 1em minus 1em}
 \newcommand{\qquadfil}{\hskip 2em minus 2em}
@@ -166,7 +180,9 @@
 % https://tex.stackexchange.com/questions/80378/red-squiggly-imitation
 \usepackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
 
-\newcommand{\mcomm}[1][1fil]{\hskip 1em plus #1 minus 1em \quad\vert\; }
+\usepackage{xparse}
+\NewDocumentCommand{\mcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
+%\newcommand{\mcomm}[2][1fil][1em]{\hskip {#2} plus #1 minus {#2} \quad\vert\; }
 
 \usepackage{setspace}
 
@@ -208,8 +224,8 @@
 
 % define text and background-color
 \usepackage{xcolor}
-%\xdefinecolor{bgcolor}{RGB}{33, 33, 33}
-%\xdefinecolor{txcolor}{RGB}{220, 220, 220}
+\xdefinecolor{bgcolor}{RGB}{33, 33, 33}
+\xdefinecolor{txcolor}{RGB}{220, 220, 220}
 \xdefinecolor{dark_red}{RGB}{165, 27, 11}
 \pagecolor{bgcolor}
 \makeatletter
@@ -301,7 +317,7 @@
 \renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\phi    }{\varphi    }
-\renewcommand{\theta  }{\upvartheta}
+%\renewcommand{\theta  }{\upvartheta}
 \renewcommand{\gamma  }{\gammaup   }
 \renewcommand{\sigma  }{\sigmaup   }
 \renewcommand{\lambda }{\lambdaup  }
@@ -333,3 +349,17 @@
 \Urlmuskip=0mu plus 10mu
 
 \usepackage{cancel}
+
+% https://tex.stackexchange.com/questions/82782/footnote-in-align-environment
+\makeatletter
+\newcommand{\AlignFootnote}[1]{%
+  \ifmeasuring@
+    \chardef\@tempfn=\value{footnote}%
+    \footnotemark
+    \setcounter{footnote}{\@tempfn}%
+  \else
+    \iffirstchoice@
+      \footnote{#1}%
+    \fi
+  \fi}
+\makeatother
