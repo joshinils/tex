@@ -70,6 +70,7 @@
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsubsection}{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex}
+\setcounter{secnumdepth}{4}
 
 
 \usepackage{enumitem}
@@ -107,6 +108,10 @@
 \parindent0pt
 \usepackage{parskip}
 
+% https://tex.stackexchange.com/questions/198462/the-lightning-symbol-in-an-equation-environment
+% \Lightning
+\usepackage{marvosym}
+
 \newcommand{\R}{ {\mathbb R} }
 \newcommand{\Z}{ {\mathbb Z} }
 \newcommand{\C}{ {\mathbb C} }
@@ -125,9 +130,9 @@
 \newcommand{\sig}{\text{signum}}
 \newcommand{\Hess}[1]{\mathop{\mathrm{H}}\nolimits#1}
 \newcommand{\laplace}[1]{\mathop{{}\Delta}\nolimits#1}
-\newcommand{\td}{\,\text{d}}
+\newcommand{\td}{\/\,\mathrm{d}}
 \newcommand{\kommentar}[1]{}
-\newcommand{\Real}[1]{\mathrm{Re}\!\left\{#1\right\}}
+\newcommand{\Real}[1]{\mathrm{Re}\left\{#1\right\}}
 \newcommand{\Spur}[1]{\mathrm{Spur}\!\left(#1\right)}
 \newcommand{\skalarprod}[2]{\left\langle#1;#2\right\rangle}
 \newcommand{\scalarprod}[2]{\left\langle#1;#2\right\rangle}
@@ -135,9 +140,16 @@
 \newcommand{\crossprod}[2]{\kreuzprod{#1}{#2}}
 
 % a little altered: https://tex.stackexchange.com/questions/58628/optional-argument-for-newcommand
-\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
-\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
-\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\!\left(#1\right)}}
+\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div}}\nolimits}{\mathrm{div}\left(#1\right)}}
+\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot}}\nolimits}{\mathrm{rot}\left(#1\right)}}
+\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\left(#1\right)}}
+
+
+% https://tex.stackexchange.com/questions/2607/spacing-around-left-and-right
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
 
 % https://tex.stackexchange.com/questions/543318/command-with-optional-argument-in-parentheses-and-subscript
 \usepackage{xparse}
@@ -168,10 +180,6 @@
 
 \everydisplay{\ifdim\predisplaysize=-\maxdimen \predisplaysize=\hsize \fi}
 \usepackage{nccmath}
-\usepackage{etoolbox}
-% https://tex.stackexchange.com/a/239589/202560
-\AtBeginEnvironment{pmatrix}{\everymath{\displaystyle}}
-\AtBeginEnvironment{bmatrix}{\everymath{\displaystyle}}
 
 % https://tex.stackexchange.com/questions/238505/change-size-of-font-of-subscript-of-underbrace-in-align-environment/238510#238510
 \usepackage{mathtools}
@@ -182,6 +190,7 @@
 
 \usepackage{xparse}
 \NewDocumentCommand{\mcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
+\NewDocumentCommand{\Bigmcomm}{ O{1fil} O{2em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
 %\newcommand{\mcomm}[2][1fil][1em]{\hskip {#2} plus #1 minus {#2} \quad\vert\; }
 
 \usepackage{setspace}
@@ -222,6 +231,23 @@
 \counterwithin*{equation}{subsection}
 \counterwithin*{equation}{subsubsection}
 
+\usepackage{tocloft}
+\newcommand{\listequationsname}{List of Equations}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
+
+\usepackage{etoolbox}
+\AfterEndEnvironment{equation}{\myequations{}}
+\AfterEndEnvironment{align}{\myequations{}}
+
+% https://tex.stackexchange.com/a/239589/202560
+\AtBeginEnvironment{pmatrix}{\everymath{\displaystyle}}
+\AtBeginEnvironment{bmatrix}{\everymath{\displaystyle}}
+
+\usepackage{extarrows}
+
 % define text and background-color
 \usepackage{xcolor}
 \xdefinecolor{bgcolor}{RGB}{33, 33, 33}
@@ -235,7 +261,6 @@
 \makeatother
 \AtBeginDocument{\globalcolor{txcolor}}
 
-\newcommand{\frage}[1]{\colorbox{dark_red}{#1}}
 \xdefinecolor{HKS51}{rgb}{0,0.593,0.629}             % HKS51, BHT türkis
 \xdefinecolor{HKS13}{rgb}{0.937,0.094,0.117}         % HKS13, BHT rot
 \xdefinecolor{HKS51-dark70}{rgb}{0,0.198,0.20 }      % TFH türkis abgedunkelt
@@ -268,11 +293,11 @@
     right  =0pt,
     top    =0pt,
     bottom =0pt,
-    breakable=true,
+    enforce breakable=true,
 }
 
 \newtcolorbox{alteAufgabe}{%
-    colback=gray!25!bgcolor, 
+    colback=gray!25!bgcolor,
     colframe=gray!25!bgcolor,
     coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
@@ -288,7 +313,7 @@
 }
 
 \newtcolorbox{nebenrechnung}{%
-    colback=bgcolor, 
+    colback=bgcolor,
     colframe=gray!25!bgcolor,
     coltext=txcolor,
     coltitle=txcolor,
@@ -304,6 +329,28 @@
     breakable=true,
     title={Nebenrechnung},
 }
+
+\newtcolorbox{frage}{
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    middle=0pt,
+    colback=red!60!txcolor,
+    colbacklower=green!50!txcolor,
+    colframe=HKS51!50!txcolor,
+    coltext=bgcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
 \usepackage{blindtext}
 
 % https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
@@ -326,13 +373,13 @@
 \DeclareMathSymbol{\intop}{\mathop}{largesymbolscmr}{"52}
 \DeclareRobustCommand\int{\intop\nolimits}
 
-% https://tex.stackexchange.com/questions/3622/best-way-to-generate-nice-function-plots-in-latex
-\usetikzlibrary{datavisualization}
-\usetikzlibrary{datavisualization.formats.functions}
-
 \DeclareSymbolFont{largeesint}{U}{esint}{m}{n}
 \DeclareMathSymbol{\cmriintop}{\mathop}{largeesint}{"03}
 \DeclareRobustCommand\iint{\cmriintop\nolimits}
+
+% https://tex.stackexchange.com/questions/3622/best-way-to-generate-nice-function-plots-in-latex
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
 
 \usepackage{fonttable}
 
@@ -340,10 +387,10 @@
 \sisetup{locale = DE}
 
 % makes nested parentheses bigger
-\delimitershortfall=0pt
+\delimitershortfall=-1pt
 
 \usepackage[hyphens]{url}
-\usepackage{hyperref}
+\usepackage[colorlinks = false]{hyperref}
 
 % https://tex.stackexchange.com/questions/339682/how-to-really-solve-the-problem-of-underfull-hbox-when-typesetting-url-in-f
 \Urlmuskip=0mu plus 10mu
