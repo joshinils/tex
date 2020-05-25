@@ -70,10 +70,27 @@
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsubsection}{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex}
-\setcounter{secnumdepth}{4}
+\titlespacing*{\paragraph    }{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex} % same spacing as subsubsection
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{} % different format, linebreak after
+\titlespacing*{\subparagraph    }{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex} % same spacing as subsubsection
+\titleformat{\subparagraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{} % different format, linebreak after
+\setcounter{secnumdepth}{10} % display more depth in the document
+\setcounter{tocdepth}{10}% display more depth in the tableofcontents
+\renewcommand{\theparagraph}{%
+\ifnum\value{subsection} > 0
+\ifnum\value{subsubsection} > 0
+\thesubsubsection.\arabic{paragraph}%
+\else
+\thesubsection.\arabic{paragraph}%
+\fi
+\else
+\thesection.\arabic{paragraph}%
+\fi
+}
 
+\usepackage{array}
+\usepackage{tabularx}
 
-\usepackage{enumitem}
 \usepackage{enumitem}
 %\setlist[itemize]{noitemsep, align=left, leftmargin=*, itemindent=0pt, labelindent=0pt, itemsep=0pt, topsep=0pt, parsep=0pt,partopsep=0pt}
 \setlist[itemize]{align = left, noitemsep, leftmargin=*, labelindent=0pt}
@@ -144,7 +161,7 @@
 % a little altered: https://tex.stackexchange.com/questions/58628/optional-argument-for-newcommand
 \renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div}}\nolimits}{\mathrm{div}\left(#1\right)}}
 \newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot}}\nolimits}{\mathrm{rot}\left(#1\right)}}
-\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\left(#1\right)}}
+%\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\left(#1\right)}}
 
 
 % https://tex.stackexchange.com/questions/2607/spacing-around-left-and-right
@@ -159,6 +176,12 @@
     \operatorname{{}J}\nolimits\mathopen{}%
     \IfValueT{#1}{_{#1}}\IfValueT{#3}{_{#3}}%
     \IfValueT{#2}{\left(#2\right)}%
+    \mathclose{}
+}
+
+\NewDocumentCommand{\grad}{g}{%
+    \operatorname{{}\mathrm{grad}}\nolimits\mathopen{}%
+    \IfValueTF{#1}{\left(#1\right)}%
     \mathclose{}
 }
 
