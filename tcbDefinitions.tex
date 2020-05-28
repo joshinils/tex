@@ -1,0 +1,336 @@
+% https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
+\usepackage[most]{tcolorbox}
+\newtcolorbox{aufgabe}{%
+%\tcbset{
+    colback=HKS51!5!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    enforce breakable=true,
+}
+
+\newtcolorbox{alteAufgabe}{%
+    colback=gray!25!bgcolor,
+    colframe=gray!25!bgcolor,
+    coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =0pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{nebenrechnung}{%
+    colback=bgcolor,
+    colframe=gray!25!bgcolor,
+    coltext=txcolor,
+    coltitle=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+    colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=3pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title={Nebenrechnung},
+}
+
+\newtcolorbox{frage}{
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    middle=0pt,
+    colback=red!60!txcolor,
+    colbacklower=green!50!txcolor,
+    colframe=HKS51!50!txcolor,
+    coltext=bgcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{antwort}{
+    colback=green!50!txcolor, colframe=HKS51-dark70!50!txcolor, coltext=bgcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    subtitle style={colback=green!50!txcolor,boxrule=0pt}
+}
+
+\newtcolorbox{markText}{
+    colback=YellowGreen!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{satz}[1][]{
+    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+%    title = \textbf{SATZ:},
+    coltitle=bgcolor,
+    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber} #1} \addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
+    before lower = \tcbsubtitle{\textbf{Beweis:}},
+    subtitle style = {
+        frame empty,
+    },
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    middle=0pt,
+}
+
+\AtBeginEnvironment{satz}{\satzEquations}
+\AtEndEnvironment{satz}{\restoresatzequations}
+\newcounter{satzsavedequation}
+\newcounter{satzNumber}
+\setcounter{satzNumber}{0}
+
+\newcommand{\satzEquations}{%
+  \setcounter{satzsavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{satzNumber}
+  \renewcommand{\theequation}{S\arabic{satzNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoresatzequations}{%
+  \setcounter{equation}{\value{satzsavedequation}}%
+}
+
+\AtBeginEnvironment{satz}{
+    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+}
+
+\newtcolorbox{proof}{
+    colback=gray!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title = \textbf{Beweis \arabic{proofNumber}},
+    coltitle=bgcolor,
+}
+
+\AtBeginEnvironment{proof}{\proofEquations}
+\AtEndEnvironment{proof}{\restoreproofequations}
+\newcounter{proofsavedequation}
+\newcounter{proofNumber}
+\setcounter{proofNumber}{0}
+
+\newcommand{\proofEquations}{%
+  \setcounter{proofsavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{proofNumber}
+  \renewcommand{\theequation}{W\arabic{proofNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoreproofequations}{%
+  \setcounter{equation}{\value{proofsavedequation}}%
+}
+\AtBeginEnvironment{proof}{
+    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
+}
+
+\newtcolorbox{definition}[1][]{
+    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title = \textbf{Definition \arabic{definitionNumber} #1 \addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1}  },
+    coltitle=bgcolor,
+}
+\AtBeginEnvironment{definition}{\definitionEquations}
+\AtEndEnvironment{definition}{\restoredefinitionequations}
+\newcounter{definitionsavedequation}
+\newcounter{definitionNumber}
+\setcounter{definitionNumber}{0}
+
+\newcommand{\definitionEquations}{%
+  \setcounter{definitionsavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{definitionNumber}
+  \renewcommand{\theequation}{D\arabic{definitionNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoredefinitionequations}{%
+  \setcounter{equation}{\value{definitionsavedequation}}%
+}
+\AtBeginEnvironment{definition}{
+    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+}
+
+\newtcolorbox{wichtig}{
+    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{anmerkung}{
+    colback=lighterGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
+\newtcolorbox{example}[1][]{
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    middle=0pt,
+    colback=orange!50!bgcolor,
+    colbacklower=notBrightGreen!50!bgcolor,
+    colframe=HKS51!50!txcolor,
+    coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title = \textbf{Beispiel \arabic{exampleNumber} #1 \addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1} },
+    coltitle=bgcolor,
+}
+
+% https://tex.stackexchange.com/questions/374620/separate-equation-numbering-in-algorithm-environment
+\AtBeginEnvironment{example}{\exampleEquations}
+\AtEndEnvironment{example}{\restoreexampleequations}
+\newcounter{examplesavedequation}
+\newcounter{exampleNumber}
+\setcounter{exampleNumber}{0}
+
+\newcommand{\exampleEquations}{%
+  \setcounter{examplesavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{exampleNumber}
+  \renewcommand{\theequation}{B\arabic{exampleNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoreexampleequations}{%
+  \setcounter{equation}{\value{examplesavedequation}}%
+}
+
+\AtBeginEnvironment{example}{
+    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+}
+
+\newtcolorbox{solution}{
+    colback=notBrightGreen!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title=\fett{Lösung:},
+    coltitle=bgcolor,
+}
+
+\newtcolorbox{orangecolorbox}{
+    colback=orange!75!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}
+
+\newtcolorbox{lightgraycolorbox}{
+    colback=lightgray!75!bgcolor, colframe=lightgray!75!txcolor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =3pt,
+    left   =0pt,
+    right  =0pt,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+}

@@ -1,12 +1,15 @@
-\usepackage{amsmath,amssymb, a4, verbatim}
-\usepackage[german]{babel}
-%\usepackage[latin1]{inputenc}
-\usepackage[utf8]{inputenc} % ueoeaess
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{header}[my collection of preamble stuff]
 
-\usepackage{csquotes}
+\RequirePackage{amsmath,amssymb, a4, verbatim}
+\RequirePackage[german]{babel}
+%\RequirePackage[latin1]{inputenc}
+\RequirePackage[utf8]{inputenc} % ueoeaess
+
+\RequirePackage{csquotes}
 \MakeOuterQuote{"}
 
-\usepackage{listings} % fuer inline codelistings
+\RequirePackage{listings} % fuer inline codelistings
 \lstset{%
     basicstyle=\ttfamily,    % the size of the fonts
     columns=fixed,            % anything else is horrifying
@@ -22,41 +25,41 @@
 \lstdefinestyle{inline}{basicstyle=\ttfamily}
 \newcommand{\listline}[1]{\lstinline[style=inline]!#1!}
 
-\usepackage{caption}
+\RequirePackage{caption}
 \newcommand{\tinycaption}[1]{\captionsetup{labelformat=empty}\caption{#1}}
 \captionsetup{belowskip=-10pt, aboveskip=5pt}
 
-%\usepackage{color}
-%\usepackage{epsfig} % eps
-\usepackage{graphicx} % eps
-%\usepackage[shortcuts]{extdash}
-%\usepackage{dsfont}
-%\usepackage{epstopdf} % eps
-%\usepackage[pdf]{pstricks} % eps
-%\usepackage{auto-pst-pdf}
-\usepackage{mathtools}
-\usepackage{dsfont} % $ \mathds{1} $
-\usepackage{icomma}
-\usepackage{tikz}
-%\usepackage{pgfplots}
+%\RequirePackage{color}
+%\RequirePackage{epsfig} % eps
+\RequirePackage{graphicx} % eps
+%\RequirePackage[shortcuts]{extdash}
+%\RequirePackage{dsfont}
+%\RequirePackage{epstopdf} % eps
+%\RequirePackage[pdf]{pstricks} % eps
+%\RequirePackage{auto-pst-pdf}
+\RequirePackage{mathtools}
+\RequirePackage{dsfont} % $ \mathds{1} $
+\RequirePackage{icomma}
+\RequirePackage{tikz}
+%\RequirePackage{pgfplots}
 %\pgfplotsset{compat=1.8}
-\usepackage[bottom]{footmisc} % put footnotes at the bottom of page
-\usepackage{nicefrac} % fuer brueche die aussehen wie prozentzeichen
-% \usepackage{ps2pdf}
+\RequirePackage[bottom]{footmisc} % put footnotes at the bottom of page
+\RequirePackage{nicefrac} % fuer brueche die aussehen wie prozentzeichen
+% \RequirePackage{ps2pdf}
 \usetikzlibrary{automata,positioning}
 
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
+\RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode}
+\RequirePackage{algorithm}
 
-\usepackage{multicol}
-\usepackage{wrapfig} % make stuff float
-\usepackage{placeins} % stop stuff from floating
-\usepackage{seqsplit} % very long numbers
-\usepackage{framed} % begin{framed}
+\RequirePackage{multicol}
+\RequirePackage{wrapfig} % make stuff float
+\RequirePackage{placeins} % stop stuff from floating
+\RequirePackage{seqsplit} % very long numbers
+\RequirePackage{framed} % begin{framed}
 
 %  Headings and Footings :
-\usepackage{fancyhdr}
+\RequirePackage{fancyhdr}
 %\headheight20pt
 \lhead{\lheadcontent}
 
@@ -68,9 +71,9 @@
 \rfoot{\input{rfoot.tex}}
 \renewcommand{\footrulewidth}{.4pt}
 
-\usepackage[all=tight, charwidths=normal, wordspacing=normal, mathspacing=normal]{savetrees}
+\RequirePackage[all=tight, charwidths=normal, wordspacing=normal, mathspacing=normal]{savetrees}
 
-\usepackage{titlesec}
+\RequirePackage{titlesec}
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsubsection}{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex}
@@ -92,10 +95,10 @@
 \fi
 }
 
-\usepackage{array}
-\usepackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{tabularx}
 
-\usepackage{enumitem}
+\RequirePackage{enumitem}
 %\setlist[itemize]{noitemsep, align=left, leftmargin=*, itemindent=0pt, labelindent=0pt, itemsep=0pt, topsep=0pt, parsep=0pt,partopsep=0pt}
 \setlist[itemize]{align = left, noitemsep, leftmargin=*, labelindent=0pt}
 
@@ -104,7 +107,7 @@
 
 \headsep20pt
 
-\usepackage{calc}
+\RequirePackage{calc}
 \newlength{\afourwidth}
 \setlength{\afourwidth}{210mm}
 
@@ -113,7 +116,7 @@
 %disallow hyphenation:
 \hyphenpenalty=1000
 \exhyphenpenalty=1500
-\usepackage[]{geometry}
+\RequirePackage[]{geometry}
 \setlength\textheight{10cm}
 \geometry{
     a4paper,
@@ -129,13 +132,13 @@
 }
 
 \parindent0pt
-\usepackage{parskip}
+\RequirePackage{parskip}
 
 % https://tex.stackexchange.com/questions/198462/the-lightning-symbol-in-an-equation-environment
 % \Lightning
-\usepackage{marvosym}
+\RequirePackage{marvosym}
 
-\usepackage{lscape}
+\RequirePackage{lscape}
 
 \newcommand{\R}{ {\mathbb R} }
 \newcommand{\Z}{ {\mathbb Z} }
@@ -177,7 +180,7 @@
 \renewcommand{\right}{\aftergroup\egroup\originalright}
 
 % https://tex.stackexchange.com/questions/543318/command-with-optional-argument-in-parentheses-and-subscript
-\usepackage{xparse}
+\RequirePackage{xparse}
 \NewDocumentCommand{\Jacobi}{e{_}ge{_}}{%
     \operatorname{{}J}\nolimits\mathopen{}%
     \IfValueT{#1}{_{#1}}\IfValueT{#3}{_{#3}}%
@@ -201,7 +204,7 @@
 \newcommand{\qquadfil}{\hskip 2em minus 2em}
 
 % https://tex.stackexchange.com/questions/37080/how-can-i-indent-a-block-of-text-for-a-specified-amount/37084
-\usepackage{scrextend}
+\RequirePackage{scrextend}
 
 % https://tex.stackexchange.com/questions/256894/how-to-make-underbrace-label-text-wrap-at-brace-width
 \def\underbraceWrap#1_#2{%
@@ -210,21 +213,21 @@
 }
 
 \everydisplay{\ifdim\predisplaysize=-\maxdimen \predisplaysize=\hsize \fi}
-\usepackage{nccmath}
+\RequirePackage{nccmath}
 
 % https://tex.stackexchange.com/questions/238505/change-size-of-font-of-subscript-of-underbrace-in-align-environment/238510#238510
-\usepackage{mathtools}
-\usepackage{relsize}
+\RequirePackage{mathtools}
+\RequirePackage{relsize}
 
 % https://tex.stackexchange.com/questions/80378/red-squiggly-imitation
-\usepackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
+\RequirePackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
 
-\usepackage{xparse}
+\RequirePackage{xparse}
 \NewDocumentCommand{\mcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
 \NewDocumentCommand{\Bigmcomm}{ O{1fil} O{2em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
 %\newcommand{\mcomm}[2][1fil][1em]{\hskip {#2} plus #1 minus {#2} \quad\vert\; }
 
-\usepackage{setspace}
+\RequirePackage{setspace}
 
 % https://tex.stackexchange.com/questions/57338/how-can-i-allow-gather-to-break-between-pages
 \allowdisplaybreaks
@@ -257,14 +260,14 @@
 }
 
 
-\usepackage{tocloft}
+\RequirePackage{tocloft}
 \newcommand{\listequationsname}{List of Equations}
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
 \setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
 
-\usepackage{etoolbox}
+\RequirePackage{etoolbox}
 % \AfterEndEnvironment{equation}{\myequations{}}
 % \AfterEndEnvironment{align}{\myequations{}}
 
@@ -276,7 +279,7 @@
 \AfterEndEnvironment{gather}{\addequation}
 
 % https://tex.stackexchange.com/questions/207532/reset-equation-numbering-after-each-section
-\usepackage{chngcntr}
+\RequirePackage{chngcntr}
 \counterwithin*{equation}{section}
 \counterwithin*{equation}{subsection}
 \counterwithin*{equation}{subsubsection}
@@ -285,12 +288,26 @@
 \AtBeginEnvironment{pmatrix}{\everymath{\displaystyle}}
 \AtBeginEnvironment{bmatrix}{\everymath{\displaystyle}}
 
-\usepackage{extarrows}
+\RequirePackage{extarrows}
 
 % define text and background-color
-\usepackage{xcolor}
-% \xdefinecolor{bgcolor}{RGB}{33, 33, 33}
-% \xdefinecolor{txcolor}{RGB}{220, 220, 220}
+\RequirePackage{xcolor}
+
+%% Global indentation option
+\newif\if@DarkMode\@DarkModefalse
+\DeclareOption{DarkMode}{
+  \@DarkModetrue
+}
+\ProcessOptions\relax
+
+\if@DarkMode
+    \xdefinecolor{bgcolor}{RGB}{33, 33, 33}
+    \xdefinecolor{txcolor}{RGB}{220, 220, 220}
+\else % bright mode
+    \xdefinecolor{bgcolor}{RGB}{255, 255, 255}
+    \xdefinecolor{txcolor}{RGB}{0, 0, 0}
+\fi
+
 \xdefinecolor{dark_red}{RGB}{165, 27, 11}
 \pagecolor{bgcolor}
 \makeatletter
@@ -326,15 +343,15 @@
 \input{\string ~/tex/tcbDefinitions.tex}
 
 
-\usepackage{blindtext}
+\RequirePackage{blindtext}
 
 % https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
 % https://github.com/joshinils/tex/blob/master/greek.tex
-\usepackage{newtxtext}% For text font
-\usepackage{newtxmath}
+\RequirePackage{newtxtext}% For text font
+\RequirePackage{newtxmath}
 
-\usepackage{upgreek}
-%\usepackage{unicode-math}
+\RequirePackage{upgreek}
+%\RequirePackage{unicode-math}
 %\unimathsetup{math-style=french}
 \renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
@@ -356,21 +373,21 @@
 \usetikzlibrary{datavisualization}
 \usetikzlibrary{datavisualization.formats.functions}
 
-\usepackage{fonttable}
+\RequirePackage{fonttable}
 
-\usepackage[range-phrase=\text{ bis },exponent-product=\cdot, per-mode=symbol, output-decimal-marker={,}]{siunitx}
+\RequirePackage[range-phrase=\text{ bis },exponent-product=\cdot, per-mode=symbol, output-decimal-marker={,}]{siunitx}
 \sisetup{locale = DE}
 
 % makes nested parentheses bigger
 \delimitershortfall=-1pt
 
-\usepackage[hyphens]{url}
-\usepackage[colorlinks = false]{hyperref}
+\RequirePackage[hyphens]{url}
+\RequirePackage[colorlinks = false]{hyperref}
 
 % https://tex.stackexchange.com/questions/339682/how-to-really-solve-the-problem-of-underfull-hbox-when-typesetting-url-in-f
 \Urlmuskip=0mu plus 10mu
 
-\usepackage{cancel}
+\RequirePackage{cancel}
 
 % https://tex.stackexchange.com/questions/82782/footnote-in-align-environment
 \makeatletter
@@ -385,3 +402,5 @@
     \fi
   \fi}
 \makeatother
+
+\endinput
