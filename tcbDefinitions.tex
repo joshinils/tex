@@ -142,7 +142,9 @@
 }
 
 \AtBeginEnvironment{satz}{
-    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi
 }
 
 \newtcolorbox{proof}{
@@ -178,8 +180,10 @@
   \setcounter{equation}{\value{proofsavedequation}}%
 }
 \AtBeginEnvironment{proof}{
-    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
-    \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi 
+   \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
 }
 
 \newtcolorbox{definition}[1][]{
@@ -214,7 +218,9 @@
   \setcounter{equation}{\value{definitionsavedequation}}%
 }
 \AtBeginEnvironment{definition}{
-    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi
 }
 
 \newtcolorbox{wichtig}{
@@ -288,7 +294,9 @@
 }
 
 \AtBeginEnvironment{example}{
-    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi
 }
 
 \newtcolorbox{solution}{

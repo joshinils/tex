@@ -1,6 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{header}[my collection of preamble stuff]
 
+% option DarkMode, if present "inverts" the colors
+% option eqInTOC, if present will put noon-* equations in the tableofcontents
+
+
 \RequirePackage{amsmath,amssymb, a4, verbatim}
 \RequirePackage[german]{babel}
 %\RequirePackage[latin1]{inputenc}
@@ -223,9 +227,16 @@
 \RequirePackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
 
 \RequirePackage{xparse}
-\NewDocumentCommand{\mcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
-\NewDocumentCommand{\Bigmcomm}{ O{1fil} O{2em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
-%\newcommand{\mcomm}[2][1fil][1em]{\hskip {#2} plus #1 minus {#2} \quad\vert\; }
+\NewDocumentCommand{\mcomm    }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
+\NewDocumentCommand{\bigmcomm }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \big\vert\;}
+\NewDocumentCommand{\Bigmcomm }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
+\NewDocumentCommand{\biggmcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \bigg\vert\;}
+\NewDocumentCommand{\Biggmcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \Bigg\vert\;}
+\NewDocumentCommand{\mcom     }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
+\NewDocumentCommand{\bigmcom  }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \big\vert\;}
+\NewDocumentCommand{\Bigmcom  }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
+\NewDocumentCommand{\biggmcom }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \bigg\vert\;}
+\NewDocumentCommand{\Biggmcom }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \Bigg\vert\;}
 
 \RequirePackage{setspace}
 
@@ -271,12 +282,24 @@
 % \AfterEndEnvironment{equation}{\myequations{}}
 % \AfterEndEnvironment{align}{\myequations{}}
 
+\newif\if@DarkMode\@DarkModefalse
+\DeclareOption{DarkMode}{
+  \@DarkModetrue
+}
+\newif\if@eqInTOC\@eqInTOCfalse
+\DeclareOption{eqInTOC}{
+  \@eqInTOCtrue
+}
+\ProcessOptions\relax
+
 % https://tex.stackexchange.com/questions/119719/add-an-item-in-the-table-of-contents
-\newcommand{\addequation}{\addcontentsline{toc}{subsection}{Gleichung \theequation}}
-\AfterEndEnvironment{equation}{\addequation}
-\AfterEndEnvironment{align}{\addequation}
-%\AfterEndEnvironment{aligned}{\addequation}
-\AfterEndEnvironment{gather}{\addequation}
+\if@eqInTOC
+    \newcommand{\addequation}{\addcontentsline{toc}{subsection}{Gleichung \theequation}}
+    \AfterEndEnvironment{equation}{\addequation}
+    \AfterEndEnvironment{align}{\addequation}
+    %\AfterEndEnvironment{aligned}{\addequation}
+    \AfterEndEnvironment{gather}{\addequation}
+\fi
 
 % https://tex.stackexchange.com/questions/207532/reset-equation-numbering-after-each-section
 \RequirePackage{chngcntr}
@@ -292,13 +315,6 @@
 
 % define text and background-color
 \RequirePackage{xcolor}
-
-%% Global indentation option
-\newif\if@DarkMode\@DarkModefalse
-\DeclareOption{DarkMode}{
-  \@DarkModetrue
-}
-\ProcessOptions\relax
 
 \if@DarkMode
     \xdefinecolor{bgcolor}{RGB}{33, 33, 33}
@@ -379,7 +395,7 @@
 \sisetup{locale = DE}
 
 % makes nested parentheses bigger
-\delimitershortfall=-1pt
+\delimitershortfall=-.5pt
 
 \RequirePackage[hyphens]{url}
 \RequirePackage[colorlinks = false]{hyperref}
