@@ -113,7 +113,7 @@
     breakable=true,
 %    title = \textbf{SATZ:},
     coltitle=bgcolor,
-    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber} #1} \addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
+    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber} #1} \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
     before lower = \tcbsubtitle{\textbf{Beweis:}},
     subtitle style = {
         frame empty,
@@ -142,7 +142,7 @@
 }
 
 \AtBeginEnvironment{satz}{
-    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
 }
 
 \newtcolorbox{proof}{
@@ -178,8 +178,8 @@
   \setcounter{equation}{\value{proofsavedequation}}%
 }
 \AtBeginEnvironment{proof}{
-    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
-    \addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
+    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
 }
 
 \newtcolorbox{definition}[1][]{
@@ -194,7 +194,7 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Definition \arabic{definitionNumber} #1 \addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1}  },
+    title = \textbf{Definition \arabic{definitionNumber} #1  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1}  },
     coltitle=bgcolor,
 }
 \AtBeginEnvironment{definition}{\definitionEquations}
@@ -214,7 +214,7 @@
   \setcounter{equation}{\value{definitionsavedequation}}%
 }
 \AtBeginEnvironment{definition}{
-    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
 }
 
 \newtcolorbox{wichtig}{
@@ -265,7 +265,7 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beispiel \arabic{exampleNumber} #1 \addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1} },
+    title = \textbf{Beispiel \arabic{exampleNumber} #1 \phantomsection\addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1} },
     coltitle=bgcolor,
 }
 
@@ -288,7 +288,7 @@
 }
 
 \AtBeginEnvironment{example}{
-    \renewcommand{\addequation}{\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
 }
 
 \newtcolorbox{solution}{
