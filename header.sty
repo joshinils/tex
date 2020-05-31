@@ -77,6 +77,19 @@
 
 \RequirePackage[all=tight, charwidths=normal, wordspacing=normal, mathspacing=normal]{savetrees}
 
+\RequirePackage{titletoc,tocloft}
+\setlength{\cftsecindent}{0em}
+\setlength{\cftsecnumwidth}{\widthof{1. }}
+
+\setlength{\cftsubsecindent}{1.5em}
+\setlength{\cftsubsecnumwidth}{\widthof{1.1. }}
+
+\setlength{\cftsubsubsecindent}{3em}
+\setlength{\cftsubsubsecnumwidth}{\widthof{1.1.1. }}
+
+\setlength{\cftparaindent}{4.5em}
+\setlength{\cftparanumwidth}{\widthof{1.1.1.1. }}
+
 \RequirePackage{titlesec}
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
@@ -130,7 +143,7 @@
     left=\somedistanceLeft,
     right=\somedistanceLeft,
     top=\somedistanceTop,
-    bottom=\somedistanceTop,
+    bottom=.6\somedistanceTop,
     headheight=15pt,
     footskip=15pt,
 }
