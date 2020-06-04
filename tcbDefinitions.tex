@@ -1,18 +1,33 @@
 % https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
 \usepackage[most]{tcolorbox}
+
+\colorlet{titleBackColor}{HKS51!20!bgcolor}
+\colorlet{frameColor}{HKS51}
+\colorlet{grayBackColor}{lightGrey!25!bgcolor}
+\newlength{\boxseppadding}
+\setlength{\boxseppadding}{3pt}
+
+\colorlet{YellowGreen}{yellow!50!green} % todo
+
+\newlength{\leftpadding}
+\setlength{\leftpadding}{3pt}
+\newlength{\rightpadding}
+\setlength{\rightpadding}{\leftpadding}
+
 \newtcolorbox{aufgabe}{%
 %\tcbset{
-    colback=HKS51!5!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=HKS51!5!bgcolor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     enforce breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{alteAufgabe}{%
@@ -24,11 +39,12 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =0pt,
-    left   =0pt,
-    right  =0pt,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{nebenrechnung}{%
@@ -40,13 +56,14 @@
     colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=3pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
     title={Nebenrechnung},
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{frage}{
@@ -56,18 +73,19 @@
     middle=0pt,
     colback=red!60!txcolor,
     colbacklower=green!50!txcolor,
-    colframe=HKS51!50!txcolor,
+    colframe=frameColor,
     coltext=bgcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{antwort}{
@@ -76,44 +94,47 @@
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
     subtitle style={colback=green!50!txcolor,boxrule=0pt}
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{markText}{
-    colback=YellowGreen!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=YellowGreen!50!bgcolor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{satz}[1][]{
-    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
 %    title = \textbf{SATZ:},
-    coltitle=bgcolor,
-    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber} #1} \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
+    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
     before lower = \tcbsubtitle{\textbf{Beweis:}},
     subtitle style = {
         frame empty,
@@ -122,6 +143,7 @@
     skin=bicolor,
     lower separated=true,
     middle=0pt,
+    colbacklower=grayBackColor,
 }
 
 \AtBeginEnvironment{satz}{\satzEquations}
@@ -148,19 +170,20 @@
 }
 
 \newtcolorbox{proof}{
-    colback=gray!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=gray!50!bgcolor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
     title = \textbf{Beweis \arabic{proofNumber}},
-    coltitle=bgcolor,
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
 }
 
 \AtBeginEnvironment{proof}{\proofEquations}
@@ -182,25 +205,30 @@
 \AtBeginEnvironment{proof}{
     \if@eqInTOC
         \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
-    \fi 
+    \fi
    \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
 }
 
 \newtcolorbox{definition}[1][]{
-    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Definition \arabic{definitionNumber} #1  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1}  },
-    coltitle=bgcolor,
+    title = \textbf{Definition \arabic{definitionNumber}} ~#1  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1},
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
+    title style={
+        boxsep=10pt,
+    },
 }
+
 \AtBeginEnvironment{definition}{\definitionEquations}
 \AtEndEnvironment{definition}{\restoredefinitionequations}
 \newcounter{definitionsavedequation}
@@ -224,31 +252,33 @@
 }
 
 \newtcolorbox{wichtig}{
-    colback=lightGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{anmerkung}{
-    colback=lighterGrey!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
@@ -259,20 +289,21 @@
     middle=0pt,
     colback=orange!50!bgcolor,
     colbacklower=notBrightGreen!50!bgcolor,
-    colframe=HKS51!50!txcolor,
+    colframe=frameColor,
     coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beispiel \arabic{exampleNumber} #1 \phantomsection\addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1} },
-    coltitle=bgcolor,
+    title = \textbf{Beispiel \arabic{exampleNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1},
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
 }
 
 % https://tex.stackexchange.com/questions/374620/separate-equation-numbering-in-algorithm-environment
@@ -300,33 +331,35 @@
 }
 
 \newtcolorbox{solution}{
-    colback=notBrightGreen!50!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=notBrightGreen!50!bgcolor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
     title=\fett{Lösung:},
-    coltitle=bgcolor,
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{orangecolorbox}{
-    colback=orange!75!bgcolor, colframe=HKS51!50!txcolor, coltext=txcolor,
+    colback=orange!75!bgcolor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }
 
 \newtcolorbox{lightgraycolorbox}{
@@ -335,10 +368,11 @@
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
-    boxsep =3pt,
-    left   =0pt,
-    right  =0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
     top    =0pt,
     bottom =0pt,
     breakable=true,
+    colbacktitle=titleBackColor,
 }

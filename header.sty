@@ -6,7 +6,7 @@
 
 
 \RequirePackage{amsmath,amssymb, a4, verbatim}
-\RequirePackage[german]{babel}
+\RequirePackage[ngerman]{babel}
 %\RequirePackage[latin1]{inputenc}
 \RequirePackage[utf8]{inputenc} % ueoeaess
 
@@ -64,7 +64,6 @@
 
 %  Headings and Footings :
 \RequirePackage{fancyhdr}
-%\headheight20pt
 \lhead{\lheadcontent}
 
 \chead{}
@@ -89,6 +88,41 @@
 
 \setlength{\cftparaindent}{4.5em}
 \setlength{\cftparanumwidth}{\widthof{1.1.1.1. }}
+
+\renewcommand{\thesubsubsection}{%
+\ifnum\value{subsection} > 0
+\ifnum\value{subsubsection} > 0
+\arabic{section}.\arabic{subsection}.\arabic{subsubsection}%
+\else
+\arabic{section}.\arabic{subsection}%
+\fi
+\else
+\arabic{section}%
+\fi
+}
+
+\newcommand{\currentSectionName}{No section name defined yet}
+\newcommand{\currentSubsectionName}{No subsection name defined yet}
+\newcommand{\currentSubsubsectionName}{No subsubsection name defined yet}
+\let\txSection\section
+\let\txSubsection\subsection
+\let\txSubsubsection\subsubsection
+\renewcommand{%
+    \section}[1]{\txSection{#1}
+    \renewcommand{\currentSectionName}{#1}
+    \renewcommand{\currentSubsectionName}{}
+    \renewcommand{\currentSubsubsectionName}{}
+}
+
+\renewcommand{%
+    \subsection}[1]{\txSubsection{#1}
+    \renewcommand{\currentSubsectionName}{#1}
+    \renewcommand{\currentSubsubsectionName}{}
+}
+\renewcommand{%
+    \subsubsection}[1]{\txSubsubsection{#1}
+    \renewcommand{\currentSubsubsectionName}{#1}
+}
 
 \RequirePackage{titlesec}
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
@@ -184,10 +218,17 @@
 \newcommand{\kreuzprod}[2]{#1\times#2}
 \newcommand{\crossprod}[2]{\kreuzprod{#1}{#2}}
 
+%https://tex.stackexchange.com/questions/235118/making-a-thicker-cdot-for-dot-product-that-is-thinner-than-bullet
+%\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+%\makeatother
+
+\RequirePackage{xifthen}
 % a little altered: https://tex.stackexchange.com/questions/58628/optional-argument-for-newcommand
-\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div}}\nolimits}{\mathrm{div}\left(#1\right)}}
-\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot}}\nolimits}{\mathrm{rot}\left(#1\right)}}
-%\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\left(#1\right)}}
+\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
+\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
+%\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\!\left(#1\right)}}
 
 
 % https://tex.stackexchange.com/questions/2607/spacing-around-left-and-right
@@ -372,7 +413,9 @@
 \input{\string ~/tex/tcbDefinitions.tex}
 
 
+\usepackage{lipsum}
 \RequirePackage{blindtext}
+\blindmathtrue
 
 % https://tex.stackexchange.com/questions/518936/using-computer-modern-int-symbol-with-txfonts-math-font
 % https://github.com/joshinils/tex/blob/master/greek.tex
@@ -390,6 +433,16 @@
 \renewcommand{\sigma  }{\sigmaup   }
 \renewcommand{\lambda }{\lambdaup  }
 
+% https://tex.stackexchange.com/questions/231322/how-to-get-the-lowercase-calligraphic-symbols
+% calipgraphic math fonts, use via \mathcal{l} and for bold \mathbcal{l}, test with this:
+%% mathcal:  \[ \mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \] \[ \mathcal{abcdefghijklmnopqrstuvwxyz} \]
+%% mathbcal: \[ \mathbcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \] \[ \mathbcal{abcdefghijklmnopqrstuvwxyz} \]
+% there are four fonts in the answer:
+%\usepackage{bickham} % cant be found on my windows system :(
+%\usepackage{boondox-cal} % cant be found on my linux system :(
+%\usepackage{boondox-calo} % cant be found on my linux system :(
+\RequirePackage{dutchcal}
+
 \DeclareSymbolFont{largesymbolscmr}{OMX}{cmex}{m}{n}
 \DeclareMathSymbol{\intop}{\mathop}{largesymbolscmr}{"52}
 \DeclareRobustCommand\int{\intop\nolimits}
@@ -406,6 +459,9 @@
 
 \RequirePackage[range-phrase=\text{ bis },exponent-product=\cdot, per-mode=symbol, output-decimal-marker={,}]{siunitx}
 \sisetup{locale = DE}
+
+% to place floats where they are wanted
+\usepackage{float}
 
 % makes nested parentheses bigger
 \delimitershortfall=-.5pt
@@ -430,6 +486,51 @@
       \footnote{#1}%
     \fi
   \fi}
+\makeatother
+
+% https://tex.stackexchange.com/questions/224805/i-want-a-really-small-underbrace
+\makeatletter
+\def\tinyunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
+    $\hfil \displaystyle {#1}\hfil $\crcr 
+    \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    {\tiny\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
+\def\scriptsizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
+    $\hfil \displaystyle {#1}\hfil $\crcr 
+    \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    {\scriptsize\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
+\def\footnotesizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
+    $\hfil \displaystyle {#1}\hfil $\crcr 
+    \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    {\footnotesize\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
+\def\smallunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
+    $\hfil \displaystyle {#1}\hfil $\crcr 
+    \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    {\small\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}    
+\def\tinyoverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
+    \noalign{\kern.5\fontdimen5\textfont2}%
+    {\tiny\downbracefill} \crcr \noalign%
+    {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    $\hfil \displaystyle {#1}\hfil $\crcr}}}\limits}
+\def\scriptsizeoverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
+    \noalign{\kern.5\fontdimen5\textfont2}%
+    {\scriptsize\downbracefill} \crcr \noalign%
+    {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    $\hfil \displaystyle {#1}\hfil $\crcr}}}\limits}
+\def\footnotesizeoverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
+    \noalign{\kern.5\fontdimen5\textfont2}%
+    {\footnotesize\downbracefill} \crcr \noalign%
+    {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    $\hfil \displaystyle {#1}\hfil $\crcr}}}\limits}
+\def\smalloverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
+    \noalign{\kern.5\fontdimen5\textfont2}%
+    {\small\downbracefill} \crcr \noalign%
+    {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    $\hfil \displaystyle {#1}\hfil $\crcr}}}\limits}
+\makeatother
+
+% https://tex.stackexchange.com/questions/412261/labels-and-nesting-gather-and-align
+\makeatletter
+\patchcmd{\endalign}{\restorealignstate@}{\global\let\df@label\@empty\restorealignstate@}{}{}
 \makeatother
 
 \endinput
