@@ -226,8 +226,8 @@
 
 \RequirePackage{xifthen}
 % a little altered: https://tex.stackexchange.com/questions/58628/optional-argument-for-newcommand
-\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
-\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
+%\renewcommand{\div}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{div} }\nolimits}{\mathrm{div} \!\left(#1\right)}}
+%\newcommand{\rot}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{rot} }\nolimits}{\mathrm{rot}\!\left(#1\right)}}
 %\newcommand{\grad}[1]{\ifthenelse{\equal{#1}{}}{\mathop{{}\mathrm{grad}}\nolimits}{\mathrm{grad}\!\left(#1\right)}}
 
 
@@ -248,6 +248,19 @@
 
 \NewDocumentCommand{\grad}{g}{%
     \operatorname{{}\mathrm{grad}}\nolimits\mathopen{}%
+    \IfValueTF{#1}{\left(#1\right)}%
+    \mathclose{}
+}
+
+\NewDocumentCommand{\rot}{g}{%
+    \operatorname{{}\mathrm{rot}}\nolimits\mathopen{}%
+    \IfValueTF{#1}{\left(#1\right)}%
+    \mathclose{}
+}
+
+\let\txdiv\div % store old
+\RenewDocumentCommand{\div}{g}{%
+    \operatorname{{}\mathrm{div}}\nolimits\mathopen{}%
     \IfValueTF{#1}{\left(#1\right)}%
     \mathclose{}
 }

@@ -2,8 +2,11 @@
 \usepackage[most]{tcolorbox}
 
 \colorlet{titleBackColor}{HKS51!20!bgcolor}
+\colorlet{redBackColor}{HKS13!20!bgcolor}
 \colorlet{frameColor}{HKS51}
 \colorlet{grayBackColor}{lightGrey!25!bgcolor}
+\colorlet{faintTitleBack}{titleBackColor!10!bgcolor}
+\colorlet{faintredBack}{redBackColor!33!bgcolor}
 \newlength{\boxseppadding}
 \setlength{\boxseppadding}{3pt}
 
@@ -131,10 +134,10 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-%    title = \textbf{SATZ:},
+    title = \textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
-    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
+%    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
     before lower = \tcbsubtitle{\textbf{Beweis:}},
     subtitle style = {
         frame empty,
@@ -170,7 +173,7 @@
 }
 
 \newtcolorbox{proof}{
-    colback=gray!50!bgcolor, colframe=frameColor, coltext=txcolor,
+    colback=faintTitleBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
@@ -267,7 +270,7 @@
 }
 
 \newtcolorbox{anmerkung}{
-    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
+    colback=faintredBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
@@ -286,9 +289,10 @@
     enhanced,
     skin=bicolor,
     lower separated=true,
+    before upper = \vspace{2pt},
     middle=0pt,
-    colback=orange!50!bgcolor,
-    colbacklower=notBrightGreen!50!bgcolor,
+    colback=orange!25!bgcolor,
+    colbacklower=notBrightGreen!25!bgcolor,
     colframe=frameColor,
     coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
