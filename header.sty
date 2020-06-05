@@ -281,12 +281,12 @@
 \RequirePackage[normalem]{ulem} % [normalem] to set \emph{} to default behaviour (italic instead of underlining)
 
 \RequirePackage{xparse}
-\NewDocumentCommand{\mcomm    }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
-\NewDocumentCommand{\bigmcomm }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \big\vert\;}
-\NewDocumentCommand{\Bigmcomm }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
-\NewDocumentCommand{\biggmcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \bigg\vert\;}
-\NewDocumentCommand{\Biggmcomm}{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \Bigg\vert\;}
-\NewDocumentCommand{\mcom     }{ O{1fil} O{1em} }{\hskip #2 plus #1 minus #2 \quad\vert\;}
+\NewDocumentCommand{\mcomm    }{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \vert\;}
+\NewDocumentCommand{\bigmcomm }{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \big\vert\;}
+\NewDocumentCommand{\Bigmcomm }{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
+\NewDocumentCommand{\biggmcomm}{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \bigg\vert\;}
+\NewDocumentCommand{\Biggmcomm}{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \Bigg\vert\;}
+\NewDocumentCommand{\mcom     }{ O{0pt} O{1em} }{\hskip #2 plus #1 minus #2 \vert\;}
 \NewDocumentCommand{\bigmcom  }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \big\vert\;}
 \NewDocumentCommand{\Bigmcom  }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \Big\vert\;}
 \NewDocumentCommand{\biggmcom }{ O{0pt}  O{0pt} }{\hskip #2 plus #1 minus #2 \bigg\vert\;}
@@ -490,22 +490,22 @@
 
 % https://tex.stackexchange.com/questions/224805/i-want-a-really-small-underbrace
 \makeatletter
-\def\tinyunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
-    $\hfil \displaystyle {#1}\hfil $\crcr 
+\def\tinyunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
+    $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
     {\tiny\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
-\def\scriptsizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
-    $\hfil \displaystyle {#1}\hfil $\crcr 
+\def\scriptsizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
+    $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
     {\scriptsize\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
-\def\footnotesizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
-    $\hfil \displaystyle {#1}\hfil $\crcr 
+\def\footnotesizeunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
+    $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
     {\footnotesize\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
-\def\smallunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr 
-    $\hfil \displaystyle {#1}\hfil $\crcr 
+\def\smallunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
+    $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
-    {\small\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}    
+    {\small\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
 \def\tinyoverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
     \noalign{\kern.5\fontdimen5\textfont2}%
     {\tiny\downbracefill} \crcr \noalign%
@@ -532,5 +532,10 @@
 \makeatletter
 \patchcmd{\endalign}{\restorealignstate@}{\global\let\df@label\@empty\restorealignstate@}{}{}
 \makeatother
+
+% optional definition which can be turned off, the Blindtext is too much text
+\newcommand{\todo}[1][]{\colorbox{red}{\textbf{TODO}~#1}
+%\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
+}
 
 \endinput
