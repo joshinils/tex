@@ -57,7 +57,8 @@
 \RequirePackage{algpseudocode}
 \RequirePackage{algorithm}
 
-\RequirePackage{multicol}
+
+
 \RequirePackage{wrapfig} % make stuff float
 \RequirePackage{placeins} % stop stuff from floating
 \RequirePackage{seqsplit} % very long numbers
@@ -183,6 +184,32 @@
     footskip=25pt,
 }
 
+\RequirePackage{xparse}
+\newlength{\paperWidth}
+\setlength{\paperWidth}{\afourwidth*\real{\AfourWidthMult}}
+
+\RequirePackage{multicol}
+
+% \let\oldMulticols\multicols
+% \let\endoldMulticols\endmulticols
+%
+% \DeclareDocumentEnvironment{optionalMulticols}{m}{
+%     \begin{oldMulticols}{#1}
+% }{
+%     \end{oldMulticols}
+% }
+%
+% \ifdim \paperWidth < 567pt
+% \else
+% %    \newenvironment{multicols}[1][]{}{}
+%     \RenewDocumentEnvironment{multicols}{ m }{}{}
+% \fi
+
+
+% \RequirePackage{silence}
+% \WarningsOff[microtype] % oh yes baby!
+%\WarningFilter{Fancyhdr}{headheight it too small}
+
 \parindent0pt
 \RequirePackage{parskip}
 
@@ -239,7 +266,6 @@
 \renewcommand{\right}{\aftergroup\egroup\originalright}
 
 % https://tex.stackexchange.com/questions/543318/command-with-optional-argument-in-parentheses-and-subscript
-\RequirePackage{xparse}
 \NewDocumentCommand{\Jacobi}{e{_}ge{_}}{%
     \operatorname{{}J}\nolimits\mathopen{}%
     \IfValueT{#1}{_{#1}}\IfValueT{#3}{_{#3}}%
