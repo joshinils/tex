@@ -284,8 +284,9 @@
     colbacktitle=titleBackColor,
 }
 
+\def\fooTodo{{\todo[beispiel-gleichung oder benennung als titel]}}
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
-\newtcolorbox{example}[1][]{
+\newtcolorbox{example}[1][\fooTodo]{
     enhanced,
     skin=bicolor,
     lower separated=true,

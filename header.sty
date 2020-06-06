@@ -41,6 +41,7 @@
 %\RequirePackage{epstopdf} % eps
 %\RequirePackage[pdf]{pstricks} % eps
 %\RequirePackage{auto-pst-pdf}
+\RequirePackage{nccmath}
 \RequirePackage{mathtools}
 \RequirePackage{dsfont} % $ \mathds{1} $
 \RequirePackage{icomma}
@@ -178,8 +179,8 @@
     right=\somedistanceLeft,
     top=\somedistanceTop,
     bottom=.6\somedistanceTop,
-    headheight=15pt,
-    footskip=15pt,
+    headheight=5pt,
+    footskip=25pt,
 }
 
 \parindent0pt
@@ -271,8 +272,8 @@
     \ifthenelse{\equal{#1}{}}{#1}{(#1)}
 }
 
-\newcommand{\quadfil}{\hskip 1em minus 1em}
-\newcommand{\qquadfil}{\hskip 2em minus 2em}
+\newcommand{\quadfil}{\hskip 1.5em minus 1em}
+\newcommand{\qquadfil}{\hskip 2.5em minus 2em}
 
 % https://tex.stackexchange.com/questions/37080/how-can-i-indent-a-block-of-text-for-a-specified-amount/37084
 \RequirePackage{scrextend}
@@ -284,10 +285,8 @@
 }
 
 \everydisplay{\ifdim\predisplaysize=-\maxdimen \predisplaysize=\hsize \fi}
-\RequirePackage{nccmath}
 
 % https://tex.stackexchange.com/questions/238505/change-size-of-font-of-subscript-of-underbrace-in-align-environment/238510#238510
-\RequirePackage{mathtools}
 \RequirePackage{relsize}
 
 % https://tex.stackexchange.com/questions/80378/red-squiggly-imitation
@@ -422,6 +421,11 @@
   \fi\endgroup}
 \makeatother
 
+% optional definition which can be turned off, the Blindtext is too much text
+\newcommand{\todo}[1][]{\colorbox{red}{\textbf{TODO}~#1}
+%\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
+}
+
 % https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
 \input{\string ~/tex/tcbDefinitions.tex}
 
@@ -546,9 +550,5 @@
 \patchcmd{\endalign}{\restorealignstate@}{\global\let\df@label\@empty\restorealignstate@}{}{}
 \makeatother
 
-% optional definition which can be turned off, the Blindtext is too much text
-\newcommand{\todo}[1][]{\colorbox{red}{\textbf{TODO}~#1}
-%\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
-}
 
 \endinput
