@@ -189,6 +189,10 @@
 \setlength{\paperWidth}{\afourwidth*\real{\AfourWidthMult}}
 
 \RequirePackage{multicol}
+% https://tex.stackexchange.com/questions/548217/
+\let\oldColumnbreak\columnbreak
+\renewcommand{\columnbreak}{\par\oldColumnbreak}
+
 
 % \let\oldMulticols\multicols
 % \let\endoldMulticols\endmulticols
