@@ -386,7 +386,7 @@
 
 % https://tex.stackexchange.com/questions/119719/add-an-item-in-the-table-of-contents
 \if@eqInTOC
-    \newcommand{\addequation}{\addcontentsline{toc}{subsection}{Gleichung \theequation}}
+    \newcommand{\addequation}{\addcontentsline{toc}{subsection}{\hspace*{1.5em} \small{\textsl{Gleichung \theequation}}}}
     \AfterEndEnvironment{equation}{\addequation}
     \AfterEndEnvironment{align}{\addequation}
     %\AfterEndEnvironment{aligned}{\addequation}

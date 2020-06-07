@@ -122,7 +122,8 @@
     colbacktitle=titleBackColor,
 }
 
-\newtcolorbox{satz}[1][]{
+\def\titleTodo{{\todo[gleichung oder benennung als titel]}}
+\newtcolorbox{satz}[1][\titleTodo]{
     colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -159,7 +160,7 @@
   \setcounter{satzsavedequation}{\value{equation}}%
   \setcounter{equation}{0}%
   \stepcounter{satzNumber}
-  \renewcommand{\theequation}{S\arabic{satzNumber}--\arabic{equation}}%
+  \renewcommand{\theequation}{S\/\arabic{satzNumber}--\arabic{equation}}%
 }
 
 \newcommand{\restoresatzequations}{%
@@ -172,7 +173,7 @@
     \fi
 }
 
-\newtcolorbox{proof}{
+\newtcolorbox{proof}[1][\titleTodo]{
     colback=faintTitleBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -184,7 +185,7 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beweis \arabic{proofNumber}},
+    title = \textbf{Beweis \arabic{proofNumber}} ~#1  \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{definitionNumber} #1},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
 }
@@ -199,7 +200,7 @@
   \setcounter{proofsavedequation}{\value{equation}}%
   \setcounter{equation}{0}%
   \stepcounter{proofNumber}
-  \renewcommand{\theequation}{W\arabic{proofNumber}--\arabic{equation}}%
+  \renewcommand{\theequation}{W\/\arabic{proofNumber}--\arabic{equation}}%
 }
 
 \newcommand{\restoreproofequations}{%
@@ -209,10 +210,10 @@
     \if@eqInTOC
         \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
     \fi
-   \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
+%   \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{proofNumber}}
 }
 
-\newtcolorbox{definition}[1][]{
+\newtcolorbox{definition}[1][\titleTodo]{
     colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -242,7 +243,7 @@
   \setcounter{definitionsavedequation}{\value{equation}}%
   \setcounter{equation}{0}%
   \stepcounter{definitionNumber}
-  \renewcommand{\theequation}{D\arabic{definitionNumber}--\arabic{equation}}%
+  \renewcommand{\theequation}{D\/\arabic{definitionNumber}--\arabic{equation}}%
 }
 
 \newcommand{\restoredefinitionequations}{%
@@ -284,9 +285,8 @@
     colbacktitle=titleBackColor,
 }
 
-\def\fooTodo{{\todo[beispiel-gleichung oder benennung als titel]}}
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
-\newtcolorbox{example}[1][\fooTodo]{
+\newtcolorbox{example}[1][\titleTodo]{
     enhanced,
     skin=bicolor,
     lower separated=true,
@@ -322,7 +322,7 @@
   \setcounter{examplesavedequation}{\value{equation}}%
   \setcounter{equation}{0}%
   \stepcounter{exampleNumber}
-  \renewcommand{\theequation}{B\arabic{exampleNumber}--\arabic{equation}}%
+  \renewcommand{\theequation}{B\/\arabic{exampleNumber}--\arabic{equation}}%
 }
 
 \newcommand{\restoreexampleequations}{%
