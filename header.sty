@@ -103,28 +103,37 @@
 \fi
 }
 
+\RequirePackage{xparse}
+
+
 \newcommand{\currentSectionName}{No section name defined yet}
 \newcommand{\currentSubsectionName}{No subsection name defined yet}
 \newcommand{\currentSubsubsectionName}{No subsubsection name defined yet}
 \let\txSection\section
 \let\txSubsection\subsection
 \let\txSubsubsection\subsubsection
-\renewcommand{%
-    \section}[1]{\txSection{#1}
-    \renewcommand{\currentSectionName}{#1}
+
+\RenewDocumentCommand\section{ s o m }
+{
+    \IfBooleanTF{#1} { \txSection*{#3} } { \txSection{#3} }
+    \renewcommand{\currentSectionName}{#3}
     \renewcommand{\currentSubsectionName}{}
     \renewcommand{\currentSubsubsectionName}{}
 }
 
-\renewcommand{%
-    \subsection}[1]{\txSubsection{#1}
+\RenewDocumentCommand\subsection{ s o m }
+{
+    \IfBooleanTF{#1} { \txSubsection*{#3} } { \txSubsection{#3} }
     \renewcommand{\currentSubsectionName}{#1}
     \renewcommand{\currentSubsubsectionName}{}
 }
-\renewcommand{%
-    \subsubsection}[1]{\txSubsubsection{#1}
+
+\RenewDocumentCommand\subsubsection{ s o m }
+{
+    \IfBooleanTF{#1} { \txSubsubsection*{#3} } { \txSubsubsection{#3} }
     \renewcommand{\currentSubsubsectionName}{#1}
 }
+
 
 \RequirePackage{titlesec}
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
@@ -184,7 +193,6 @@
     footskip=25pt,
 }
 
-\RequirePackage{xparse}
 \newlength{\paperWidth}
 \setlength{\paperWidth}{\afourwidth*\real{\AfourWidthMult}}
 
@@ -253,7 +261,7 @@
 %https://tex.stackexchange.com/questions/235118/making-a-thicker-cdot-for-dot-product-that-is-thinner-than-bullet
 %\makeatletter
 \newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
-\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+%\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
 %\makeatother
 
 \RequirePackage{xifthen}
@@ -378,6 +386,7 @@
 % \AfterEndEnvironment{equation}{\myequations{}}
 % \AfterEndEnvironment{align}{\myequations{}}
 
+\makeatletter
 \newif\if@DarkMode\@DarkModefalse
 \DeclareOption{DarkMode}{
   \@DarkModetrue
@@ -387,10 +396,10 @@
   \@eqInTOCtrue
 }
 \ProcessOptions\relax
-
+\makeatother
 % https://tex.stackexchange.com/questions/119719/add-an-item-in-the-table-of-contents
 \if@eqInTOC
-    \newcommand{\addequation}{\addcontentsline{toc}{subsection}{\hspace*{1.5em} \small{\textsl{Gleichung \theequation}}}}
+    \newcommand{\addequation}{\addcontentsline{toc}{subsection}{\hspace*{1.5em} \small{\textsl{Gleichung} \theequation}}}
     \AfterEndEnvironment{equation}{\addequation}
     \AfterEndEnvironment{align}{\addequation}
     %\AfterEndEnvironment{aligned}{\addequation}
@@ -589,5 +598,6 @@
 \patchcmd{\endalign}{\restorealignstate@}{\global\let\df@label\@empty\restorealignstate@}{}{}
 \makeatother
 
+\RequirePackage{pdfpages}
 
 \endinput
