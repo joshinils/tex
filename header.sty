@@ -124,14 +124,14 @@
 \RenewDocumentCommand\subsection{ s o m }
 {
     \IfBooleanTF{#1} { \txSubsection*{#3} } { \txSubsection{#3} }
-    \renewcommand{\currentSubsectionName}{#1}
+    \renewcommand{\currentSubsectionName}{#3}
     \renewcommand{\currentSubsubsectionName}{}
 }
 
 \RenewDocumentCommand\subsubsection{ s o m }
 {
     \IfBooleanTF{#1} { \txSubsubsection*{#3} } { \txSubsubsection{#3} }
-    \renewcommand{\currentSubsubsectionName}{#1}
+    \renewcommand{\currentSubsubsectionName}{#3}
 }
 
 
@@ -252,6 +252,7 @@
 \newcommand{\td}{\/\,\mathrm{d}}
 \newcommand{\kommentar}[1]{}
 \newcommand{\Real}[1]{\mathrm{Re}\left\{#1\right\}}
+\newcommand{\Imag}[1]{\mathrm{Im}\left\{#1\right\}}
 \newcommand{\Spur}[1]{\mathrm{Spur}\!\left(#1\right)}
 \newcommand{\skalarprod}[2]{\left\langle#1;#2\right\rangle}
 \newcommand{\scalarprod}[2]{\left\langle#1;#2\right\rangle}
@@ -261,7 +262,7 @@
 %https://tex.stackexchange.com/questions/235118/making-a-thicker-cdot-for-dot-product-that-is-thinner-than-bullet
 %\makeatletter
 \newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
-%\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
 %\makeatother
 
 \RequirePackage{xifthen}
@@ -386,7 +387,6 @@
 % \AfterEndEnvironment{equation}{\myequations{}}
 % \AfterEndEnvironment{align}{\myequations{}}
 
-\makeatletter
 \newif\if@DarkMode\@DarkModefalse
 \DeclareOption{DarkMode}{
   \@DarkModetrue
@@ -396,7 +396,7 @@
   \@eqInTOCtrue
 }
 \ProcessOptions\relax
-\makeatother
+
 % https://tex.stackexchange.com/questions/119719/add-an-item-in-the-table-of-contents
 \if@eqInTOC
     \newcommand{\addequation}{\addcontentsline{toc}{subsection}{\hspace*{1.5em} \small{\textsl{Gleichung} \theequation}}}
