@@ -461,7 +461,7 @@
 \makeatother
 
 % optional definition which can be turned off, the Blindtext is too much text
-\newcommand{\todo}[1][]{\colorbox{red}{\textbf{TODO}~#1\addcontentsline{toc}{section}{\colorbox{red}{TODO:#1}} }
+\newcommand{\todo}[1][]{\smash{\colorbox{red}{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\colorbox{red}{TODO:#1}} }
 %\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
 }
 
@@ -482,7 +482,7 @@
 \RequirePackage{upgreek}
 %\RequirePackage{unicode-math}
 %\unimathsetup{math-style=french}
-% \renewcommand{\alpha  }{\alphaup   }
+\renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\phi    }{\varphi    }
 %\renewcommand{\theta  }{\upvartheta}
