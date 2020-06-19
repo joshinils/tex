@@ -286,7 +286,10 @@
 }
 
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
-\newtcolorbox{example}[1][\titleTodo]{
+
+\newcounter{exampleNumber}
+\setcounter{exampleNumber}{0}
+\newtcolorbox[use counter=exampleNumber]{example}[2][]{
     enhanced,
     skin=bicolor,
     lower separated=true,
@@ -306,33 +309,25 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beispiel \arabic{exampleNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Beispiel \arabic{exampleNumber} #1},
+    title = \textbf{Beispiel \theexampleNumber} ~#2 \phantomsection\addcontentsline{toc}{subsection}{Beispiel \theexampleNumber~#2},
+    phantomlabel=#1,
     coltitle=txcolor,
     colbacktitle=titleBackColor,
 }
+\renewcommand{\theexampleNumber}{B\arabic{exampleNumber}}
 
 % https://tex.stackexchange.com/questions/374620/separate-equation-numbering-in-algorithm-environment
-\AtBeginEnvironment{example}{\exampleEquations}
-\AtEndEnvironment{example}{\restoreexampleequations}
 \newcounter{examplesavedequation}
-\newcounter{exampleNumber}
-\setcounter{exampleNumber}{0}
-
-\newcommand{\exampleEquations}{%
-  \setcounter{examplesavedequation}{\value{equation}}%
-  \setcounter{equation}{0}%
-  \stepcounter{exampleNumber}
-  \renewcommand{\theequation}{B\/\arabic{exampleNumber}--\arabic{equation}}%
-}
-
-\newcommand{\restoreexampleequations}{%
-  \setcounter{equation}{\value{examplesavedequation}}%
-}
-
 \AtBeginEnvironment{example}{
+    \setcounter{examplesavedequation}{\value{equation}}
+    \setcounter{equation}{0}
+    \renewcommand{\theequation}{\theexampleNumber--\arabic{equation}}
     \if@eqInTOC
         \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
     \fi
+}
+\AtEndEnvironment{example}{
+    \setcounter{equation}{\value{examplesavedequation}}
 }
 
 \newtcolorbox{solution}{

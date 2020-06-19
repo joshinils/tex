@@ -460,8 +460,12 @@
   \fi\endgroup}
 \makeatother
 
+% https://latex.org/forum/viewtopic.php?t=14336
+\newcommand{\tlap}[1]{\vbox to 0pt{\vss\hbox{#1}}}
+\newcommand{\blap}[1]{\vbox to 0pt{\hbox{#1}\vss}}
+
 % optional definition which can be turned off, the Blindtext is too much text
-\newcommand{\todo}[1][]{\smash{\colorbox{red}{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\colorbox{red}{TODO:#1}} }
+\newcommand{\todo}[1][]{{\colorbox{red}{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\colorbox{red}{TODO:#1}} }
 %\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
 }
 
