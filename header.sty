@@ -311,6 +311,7 @@
     \ifthenelse{\equal{#1}{}}{#1}{(#1)}
 }
 
+\newcommand{\emfil}{\hskip 1em minus .5em}
 \newcommand{\quadfil}{\hskip 1.5em minus 1em}
 \newcommand{\qquadfil}{\hskip 2.5em minus 2em}
 
@@ -562,6 +563,10 @@
 
 % https://tex.stackexchange.com/questions/224805/i-want-a-really-small-underbrace
 \makeatletter
+\def\underNObrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
+    $\hfil \displaystyle {#1}\hfil $\crcr
+    \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
 \def\tinyunderbrace#1{\mathop {\vtop {\m@th \ialign {##\crcr
     $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
@@ -578,6 +583,11 @@
     $\hfil \displaystyle {#1}\hfil $\crcr
     \noalign {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
     {\small\upbracefill} \crcr \noalign {\kern .5\fontdimen 5\textfont 2}}}}\limits}
+\def\overNObrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
+    \noalign{\kern.5\fontdimen5\textfont2}%
+    \crcr \noalign%
+    {\kern .7\fontdimen 5\textfont 2\nointerlineskip }%
+    $\hfil \displaystyle {#1}\hfil $\crcr}}}\limits}
 \def\tinyoverbrace#1{\mathop{\vbox{\m@th\ialign{##\crcr
     \noalign{\kern.5\fontdimen5\textfont2}%
     {\tiny\downbracefill} \crcr \noalign%
@@ -624,8 +634,22 @@
 }
 \makeatother
 
-
+\newcommand{\colored}[2][txcolor]{\color{#1}#2\color{txcolor}}
 \newcommand{\culine}[2][txcolor]{\color{#1}\underline{{\color{txcolor}#2}}\color{txcolor}}
 \newcommand{\coline}[2][txcolor]{\color{#1}\overline{{\color{txcolor}#2}}\color{txcolor}}
+% https://tex.stackexchange.com/questions/46492/newcommand-how-to-determine-if-in-math-mode-and-then-include
+\newcommand{\cfbox}[2][txcolor]{
+    \color{#1}
+    \relax
+    \ifmmode % check if wherecfbox occurs is in mathmode
+        \fbox{\color{txcolor}$#2$} % set argument as math
+    \else
+        \fbox{\color{txcolor}#2}
+    \fi
+    \color{txcolor}
+}
+
+\RequirePackage{adjustbox}
+\RequirePackage{scalerel}
 
 \endinput
