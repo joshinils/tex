@@ -466,7 +466,7 @@
 \newcommand{\blap}[1]{\vbox to 0pt{\hbox{#1}\vss}}
 
 % optional definition which can be turned off, the Blindtext is too much text
-\newcommand{\todo}[1][]{{\colorbox{red}{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\colorbox{red}{TODO:#1}} }
+\newcommand{\todo}[1][]{{\setlength{\fboxsep}{0pt}\marker[red]{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\marker[red]{TODO:#1}} }
 %\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
 }
 
@@ -651,5 +651,15 @@
 
 \RequirePackage{adjustbox}
 \RequirePackage{scalerel}
+
+% https://tex.stackexchange.com/questions/74459/remove-space-before-colorbox
+\newcommand{\reducedstrut}{\vrule width 0pt height .9\ht\strutbox depth .9\dp\strutbox\relax}
+\newcommand{\marker}[2][yellow]{%
+  \begingroup
+  \setlength{\fboxsep}{0pt}%
+  \colorbox{#1}{\reducedstrut#2\/}%
+  \endgroup
+}
+
 
 \endinput
