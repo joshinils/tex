@@ -472,7 +472,8 @@
 }
 
 % https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
-\input{\string ~/tex/tcbDefinitions.tex}
+\RequirePackage{import}
+\subimport{../texHeaders/}{tcbDefinitions.tex}
 
 
 \usepackage{lipsum}
