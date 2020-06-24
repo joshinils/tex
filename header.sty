@@ -670,4 +670,9 @@
 
 \RequirePackage{stackrel}
 
-\endinput
+% https://tex.stackexchange.com/questions/98839/center-and-centering-both-add-space-above-centerline-does-not
+\newenvironment{nscenter}
+{\parskip=0pt\par\nopagebreak\centering}
+{\par\noindent\ignorespacesafterend}
+
+ \endinput
