@@ -675,4 +675,14 @@
 {\parskip=0pt\par\nopagebreak\centering}
 {\par\noindent\ignorespacesafterend}
 
- \endinput
+% https://tex.stackexchange.com/a/53844/202560
+\newcommand{\ditto}{%
+    \tikz{
+        \draw [line width=0.12ex] (-0.2ex,0) -- +(0,0.8ex)
+            (0.2ex,0) -- +(0,0.8ex);
+        \draw [line width=0.08ex] (-0.6ex,0.4ex) -- +(-1.5em,0)
+            (0.6ex,0.4ex) -- +(1.5em,0);
+    }%
+}
+
+\endinput
