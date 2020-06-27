@@ -547,8 +547,6 @@
 % https://tex.stackexchange.com/questions/339682/how-to-really-solve-the-problem-of-underfull-hbox-when-typesetting-url-in-f
 \Urlmuskip=0mu plus 10mu
 
-\RequirePackage{cancel}
-
 % https://tex.stackexchange.com/questions/82782/footnote-in-align-environment
 \makeatletter
 \newcommand{\AlignFootnote}[1]{%
@@ -639,6 +637,12 @@
 \newcommand{\colored}[2][txcolor]{\color{#1}#2\color{txcolor}}
 \newcommand{\culine}[2][txcolor]{\color{#1}\underline{{\color{txcolor}#2}}\color{txcolor}}
 \newcommand{\coline}[2][txcolor]{\color{#1}\overline{{\color{txcolor}#2}}\color{txcolor}}
+
+%https://tex.stackexchange.com/a/105905/202560
+\RequirePackage{cancel}
+\let\oldCancel\cancel
+\renewcommand\cancel[2][txcolor]{\renewcommand\CancelColor{\color{#1}}\oldCancel{#2}}
+
 % https://tex.stackexchange.com/questions/46492/newcommand-how-to-determine-if-in-math-mode-and-then-include
 \newcommand{\cfbox}[2][txcolor]{
     \color{#1}
@@ -683,6 +687,13 @@
         \draw [line width=0.08ex] (-0.6ex,0.4ex) -- +(-1.5em,0)
             (0.6ex,0.4ex) -- +(1.5em,0);
     }%
+}
+
+% https://tex.stackexchange.com/a/102821/202560
+\newlength\wantedwidth
+\newcommand{\fakewidth}[2]{%
+  \settowidth{\wantedwidth}{\ensuremath{#2}}%
+  \makebox[\wantedwidth]{\ensuremath{#1}}%
 }
 
 \endinput
