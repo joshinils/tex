@@ -78,40 +78,62 @@
 
 \RequirePackage[all=tight, charwidths=normal, wordspacing=normal, mathspacing=normal]{savetrees}
 
-\RequirePackage{titletoc,tocloft}
-\setlength{\cftsecindent}{0em}
-\setlength{\cftsecnumwidth}{\widthof{1. }}
+\RequirePackage{titletoc}
+\RequirePackage[titles]{tocloft}
 
-\setlength{\cftsubsecindent}{1.5em}
-\setlength{\cftsubsecnumwidth}{\widthof{1.1. }}
+% \setlength{\cftsecindent}{0em}
+% \setlength{\cftsecnumwidth}{\widthof{1. }}
 
-\setlength{\cftsubsubsecindent}{3em}
-\setlength{\cftsubsubsecnumwidth}{\widthof{1.1.1. }}
+% \setlength{\cftsubsecindent}{1.5em}
+% \setlength{\cftsubsecnumwidth}{\widthof{1.1. }}
 
-\setlength{\cftparaindent}{4.5em}
-\setlength{\cftparanumwidth}{\widthof{1.1.1.1. }}
+% \setlength{\cftsubsubsecindent}{3em}
+% \setlength{\cftsubsubsecnumwidth}{\widthof{1.1.1. }}
 
-\renewcommand{\thesubsubsection}{%
-\ifnum\value{subsection} > 0
-\ifnum\value{subsubsection} > 0
-\arabic{section}.\arabic{subsection}.\arabic{subsubsection}%
-\else
-\arabic{section}.\arabic{subsection}%
-\fi
-\else
-\arabic{section}%
-\fi
-}
+% \setlength{\cftparaindent}{4.5em}
+% \setlength{\cftparanumwidth}{\widthof{1.1.1.1. }}
+
+% \renewcommand{\thesubsubsection}{%
+% \ifnum\value{subsection} > 0
+% \ifnum\value{subsubsection} > 0
+% \arabic{section}.\arabic{subsection}.\arabic{subsubsection}%
+% \else
+% \arabic{section}.\arabic{subsection}%
+% \fi
+% \else
+% \arabic{section}%
+% \fi
+% }
 
 \RequirePackage{xparse}
 
+\RequirePackage{etoolbox}
 
+%https://tex.stackexchange.com/a/24067/202560
+% put chapter headings not on a new page
+%\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+
+% https://tex.stackexchange.com/a/39989/202560
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}
+
+\newcommand{\currentChapterName}{No chapter name defined yet}
 \newcommand{\currentSectionName}{No section name defined yet}
 \newcommand{\currentSubsectionName}{No subsection name defined yet}
 \newcommand{\currentSubsubsectionName}{No subsubsection name defined yet}
+\let\txChapter\chapter
 \let\txSection\section
 \let\txSubsection\subsection
 \let\txSubsubsection\subsubsection
+
+\RenewDocumentCommand\chapter{ s o m }
+{
+    \IfBooleanTF{#1} { \txChapter*{#3} } { \txChapter{#3} }
+    \renewcommand{\currentChapterName}{#3}
+    \renewcommand{\currentSectionName}{}
+    \renewcommand{\currentSubsectionName}{}
+    \renewcommand{\currentSubsubsectionName}{}
+}
 
 \RenewDocumentCommand\section{ s o m }
 {
@@ -136,6 +158,11 @@
 
 
 \RequirePackage{titlesec}
+\titleformat{\chapter}[block]{\Huge\bfseries}{\thechapter\hspace{20pt}\textcolor{gray!75!bgcolor}{|}\hspace{20pt}}{0pt}{\Huge\bfseries}
+\titleformat{\section}[block]{\Large\bfseries}{\thesection\hspace{15pt}\textcolor{gray!75!bgcolor}{|}\hspace{15pt}}{0pt}{\Large\bfseries}
+\titleformat{\subsection}[block]{\large\bfseries}{\thesubsection\hspace{10pt}\textcolor{gray!75!bgcolor}{|}\hspace{10pt}}{0pt}{\large\bfseries}
+
+\titlespacing*{\chapter      }{0pt}{  0ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\section      }{0pt}{  2ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsection   }{0pt}{1.5ex plus 0ex minus 0ex}{0ex plus 0ex}
 \titlespacing*{\subsubsection}{0pt}{  1ex plus 0ex minus 0ex}{0ex plus 0ex}
@@ -145,17 +172,21 @@
 \titleformat{\subparagraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{} % different format, linebreak after
 \setcounter{secnumdepth}{10} % display more depth in the document
 \setcounter{tocdepth}{10}% display more depth in the tableofcontents
-\renewcommand{\theparagraph}{%
-\ifnum\value{subsection} > 0
-\ifnum\value{subsubsection} > 0
-\thesubsubsection.\arabic{paragraph}%
-\else
-\thesubsection.\arabic{paragraph}%
-\fi
-\else
-\thesection.\arabic{paragraph}%
-\fi
-}
+% \renewcommand{\theparagraph}{%
+% \ifnum\value{chapter} > 0
+% \ifnum\value{subsection} > 0
+% \ifnum\value{subsubsection} > 0
+% \thesubsubsection.\arabic{paragraph}%
+% \else
+% \thesubsection.\arabic{paragraph}%
+% \fi
+% \else
+% \thesection.\arabic{paragraph}%
+% \fi
+% \else
+% \thechapter.\arabic{paragraph}%
+% \fi
+% }
 
 \RequirePackage{array}
 \RequirePackage{tabularx}
@@ -367,28 +398,32 @@
 % \fi
 % }
 \renewcommand{\theequation}{%
-\ifnum\value{subsection} > 0
-\ifnum\value{subsubsection} > 0
-\thesubsubsection--\arabic{equation}%
+\ifnum\value{chapter} > 0
+    \ifnum\value{subsection} > 0
+        \ifnum\value{subsubsection} > 0
+            \thesubsubsection--\arabic{equation}%
+        \else
+            \thesubsection--\arabic{equation}%
+        \fi
+    \else
+        \thesection--\arabic{equation}%
+    \fi
 \else
-\thesubsection--\arabic{equation}%
-\fi
-\else
-\thesection--\arabic{equation}%
+    \thechapter--\arabic{equation}%
 \fi
 }
 
-
-\RequirePackage{tocloft}
 \newcommand{\listequationsname}{List of Equations}
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
 \setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
 
-\RequirePackage{etoolbox}
 % \AfterEndEnvironment{equation}{\myequations{}}
 % \AfterEndEnvironment{align}{\myequations{}}
+
+% https://tex.stackexchange.com/a/117334/202560
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
 
 \newif\if@DarkMode\@DarkModefalse
 \DeclareOption{DarkMode}{
@@ -411,6 +446,7 @@
 
 % https://tex.stackexchange.com/questions/207532/reset-equation-numbering-after-each-section
 \RequirePackage{chngcntr}
+\counterwithin*{equation}{chapter}
 \counterwithin*{equation}{section}
 \counterwithin*{equation}{subsection}
 \counterwithin*{equation}{subsubsection}
