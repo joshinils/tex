@@ -5,10 +5,10 @@
 % option eqInTOC, if present will put noon-* equations in the tableofcontents
 
 
-\RequirePackage{amsmath,amssymb, a4, verbatim}
 \RequirePackage[ngerman]{babel}
 %\RequirePackage[latin1]{inputenc}
 \RequirePackage[utf8]{inputenc} % ueoeaess
+\RequirePackage{amsmath,amssymb, a4, verbatim}
 
 \RequirePackage{csquotes}
 \MakeOuterQuote{"}
@@ -229,6 +229,7 @@
 \setlength{\paperWidth}{\afourwidth*\real{\AfourWidthMult}}
 
 \RequirePackage{multicol}
+
 % https://tex.stackexchange.com/questions/548217/
 \let\oldColumnbreak\columnbreak
 \renewcommand{\columnbreak}{\oldColumnbreak\par}
@@ -504,10 +505,10 @@
 \newcommand{\blap}[1]{\vbox to 0pt{\hbox{#1}\vss}}
 
 % optional definition which can be turned off, the Blindtext is too much text
-\newcommand{\todo}[1][]{{\setlength{\fboxsep}{0pt}\marker[red]{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\marker[red]{TODO:#1}} }
+\newcommand{\todo}[1][]{\phantomsection{\setlength{\fboxsep}{0pt}\marker[red]{\textbf{TODO}~#1}\addcontentsline{toc}{section}{\marker[red]{TODO:#1}} }
 %\globalcolor{gray}\Blindtext[1][0]\globalcolor{txcolor}
 }
-\newcommand{\todoMarker}[1][Transcribe]{\addcontentsline{toc}{section}{\marker[orange]{TODO:#1}} }
+\newcommand{\todoMarker}[1][Transcribe]{\phantomsection\addcontentsline{toc}{section}{\marker[orange]{TODO:#1}} }
 
 % https://tex.stackexchange.com/questions/180325/boxed-equation-with-number/180326
 
@@ -527,6 +528,7 @@
 \renewcommand{\alpha  }{\alphaup   }
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\phi    }{\varphi    }
+\renewcommand{\Phi    }{\Upphi     } % not as squished and fat looking
 %\renewcommand{\theta  }{\upvartheta}
 \renewcommand{\gamma  }{\gammaup   }
 \renewcommand{\sigma  }{\sigmaup   }
@@ -579,7 +581,6 @@
 \delimitershortfall=-.5pt
 
 \RequirePackage[hyphens]{url}
-\RequirePackage[colorlinks = false]{hyperref}
 
 % https://tex.stackexchange.com/questions/339682/how-to-really-solve-the-problem-of-underfull-hbox-when-typesetting-url-in-f
 \Urlmuskip=0mu plus 10mu
@@ -735,4 +736,8 @@
 
 \usepackage{polynom}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+%load last
+\RequirePackage[colorlinks = false]{hyperref}
 \endinput
