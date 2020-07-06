@@ -117,10 +117,10 @@
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}
 
-\newcommand{\currentChapterName}{No chapter name defined yet}
-\newcommand{\currentSectionName}{No section name defined yet}
-\newcommand{\currentSubsectionName}{No subsection name defined yet}
-\newcommand{\currentSubsubsectionName}{No subsubsection name defined yet}
+\def\currentChapterName{No chapter name defined yet}
+\def\currentSectionName{No section name defined yet}
+\def\currentSubsectionName{No subsection name defined yet}
+\def\currentSubsubsectionName{No subsubsection name defined yet}
 \let\txChapter\chapter
 \let\txSection\section
 \let\txSubsection\subsection
@@ -129,31 +129,31 @@
 \RenewDocumentCommand\chapter{ s o m }
 {
     \IfBooleanTF{#1} { \txChapter*{#3} } { \txChapter{#3} }
-    \renewcommand{\currentChapterName}{#3}
-    \renewcommand{\currentSectionName}{}
-    \renewcommand{\currentSubsectionName}{}
-    \renewcommand{\currentSubsubsectionName}{}
+    \global\def\currentChapterName{#3}
+    \global\def\currentSectionName{}
+    \global\def\currentSubsectionName{}
+    \global\def\currentSubsubsectionName{}
 }
 
 \RenewDocumentCommand\section{ s o m }
 {
     \IfBooleanTF{#1} { \txSection*{#3} } { \txSection{#3} }
-    \renewcommand{\currentSectionName}{#3}
-    \renewcommand{\currentSubsectionName}{}
-    \renewcommand{\currentSubsubsectionName}{}
+    \global\def\currentSectionName{#3}
+    \global\def\currentSubsectionName{}
+    \global\def\currentSubsubsectionName{}
 }
 
 \RenewDocumentCommand\subsection{ s o m }
 {
     \IfBooleanTF{#1} { \txSubsection*{#3} } { \txSubsection{#3} }
-    \renewcommand{\currentSubsectionName}{#3}
-    \renewcommand{\currentSubsubsectionName}{}
+    \global\def\currentSubsectionName{#3}
+    \global\def\currentSubsubsectionName{}
 }
 
 \RenewDocumentCommand\subsubsection{ s o m }
 {
     \IfBooleanTF{#1} { \txSubsubsection*{#3} } { \txSubsubsection{#3} }
-    \renewcommand{\currentSubsubsectionName}{#3}
+    \global\def\currentSubsubsectionName{#3}
 }
 
 
