@@ -133,6 +133,7 @@
     \global\def\currentSectionName{}
     \global\def\currentSubsectionName{}
     \global\def\currentSubsubsectionName{}
+    \thispagestyle{fancy}
 }
 
 \RenewDocumentCommand\section{ s o m }
@@ -733,6 +734,8 @@
   \settowidth{\wantedwidth}{\ensuremath{#2}}%
   \makebox[\wantedwidth]{\ensuremath{#1}}%
 }
+
+\newcommand{\VLdate}[1]{\subsection{{\normalfont\small\textit{#1}}}}
 
 \usepackage{polynom}
 
