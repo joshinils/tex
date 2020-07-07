@@ -16,6 +16,7 @@
 \setlength{\leftpadding}{3pt}
 \newlength{\rightpadding}
 \setlength{\rightpadding}{\leftpadding}
+\newcommand{\tcbBoxWidthMult}{1.0}
 
 \newtcolorbox{aufgabe}{%
 %\tcbset{
@@ -51,6 +52,8 @@
 }
 
 \newtcolorbox{nebenrechnung}{%
+    width=\tcbBoxWidthMult\linewidth,
+    flush right,
     enhanced,
     colback=bgcolor,
     colframe=gray!25!bgcolor,
@@ -125,6 +128,8 @@
 
 \def\titleTodo{{\todo[gleichung oder benennung als titel]}}
 \newtcolorbox{satz}[1][\titleTodo]{
+    width=\tcbBoxWidthMult\linewidth,
+    flush left,
     colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -175,6 +180,8 @@
 }
 
 \newtcolorbox{proof}[1][\titleTodo]{
+    width=\tcbBoxWidthMult\linewidth,
+    flush left,
     colback=faintTitleBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -215,6 +222,8 @@
 }
 
 \newtcolorbox{definition}[1][\titleTodo]{
+    width=\tcbBoxWidthMult\linewidth,
+    flush left,
     colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -272,6 +281,8 @@
 }
 
 \newtcolorbox{anmerkung}{
+    width=\tcbBoxWidthMult\linewidth,
+    center,
     colback=faintredBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -291,6 +302,8 @@
 \newcounter{exampleNumber}
 \setcounter{exampleNumber}{0}
 \newtcolorbox[use counter=exampleNumber]{example}[2][]{
+    width=\tcbBoxWidthMult\linewidth,
+    flush right,
     enhanced,
     skin=bicolor,
     lower separated=true,
