@@ -284,9 +284,10 @@
     colbacktitle=titleBackColor,
 }
 
-\newtcolorbox{anmerkung}{
+\newtcolorbox{anmerkung}[1][]{
     width=\tcbBoxWidthMult\linewidth,
     center,
+    coltitle=txcolor,
     colback=faintredBack, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
@@ -299,6 +300,7 @@
     bottom =0pt,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = Anmerkung: #1,
 }
 
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
