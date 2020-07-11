@@ -71,6 +71,7 @@
     breakable=true,
     title={Nebenrechnung},
     colbacktitle=titleBackColor,
+    halign=left,
 }
 
 \newtcolorbox{frage}{
@@ -154,6 +155,7 @@
     lower separated=true,
     middle=0pt,
     colbacklower=grayBackColor,
+    halign=left,
 }
 
 \AtBeginEnvironment{satz}{\satzEquations}
@@ -196,6 +198,7 @@
     title = \textbf{Beweis \arabic{proofNumber}} ~#1  \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{definitionNumber} #1},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
+    halign=left,
 }
 
 \AtBeginEnvironment{proof}{\proofEquations}
@@ -241,6 +244,7 @@
     title style={
         boxsep=10pt,
     },
+    halign=left,
 }
 
 \AtBeginEnvironment{definition}{\definitionEquations}
@@ -327,6 +331,7 @@
     phantomlabel=#1,
     coltitle=txcolor,
     colbacktitle=titleBackColor,
+    halign=left,
 }
 \renewcommand{\theexampleNumber}{B\arabic{exampleNumber}}
 
@@ -389,4 +394,57 @@
     bottom =0pt,
     breakable=true,
     colbacktitle=titleBackColor,
+}
+
+\newtcolorbox{slideKiste}[1][\titleTodo]{
+    width=\linewidth,
+    center,
+    colback=bgcolor, colframe=frameColor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
+    top    =0pt,
+    bottom =0pt,
+    breakable=true,
+    title = #1 \phantomsection\addcontentsline{toc}{subsection}{SlideKiste \arabic{slideKisteNumber} #1},
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
+%    before upper = \tcbsubtitle{\textbf{SlideKiste \arabic{slideKisteNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{SlideKiste \arabic{slideKisteNumber} #1}},
+    before lower = \tcbsubtitle{\textbf{Lower:}},
+    subtitle style = {
+        frame empty,
+    },
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    middle=0pt,
+    colbacklower=bgcolor,
+    halign=left,
+}
+
+\AtBeginEnvironment{slideKiste}{\slideKisteEquations}
+\AtEndEnvironment{slideKiste}{\restoreslideKisteequations}
+\newcounter{slideKistesavedequation}
+\newcounter{slideKisteNumber}
+\setcounter{slideKisteNumber}{0}
+
+\newcommand{\slideKisteEquations}{%
+  \setcounter{slideKistesavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{slideKisteNumber}
+  \renewcommand{\theequation}{K\/\arabic{slideKisteNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoreslideKisteequations}{%
+  \setcounter{equation}{\value{slideKistesavedequation}}%
+}
+
+\AtBeginEnvironment{slideKiste}{
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi
 }
