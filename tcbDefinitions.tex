@@ -7,15 +7,20 @@
 \colorlet{grayBackColor}{lightGrey!25!bgcolor}
 \colorlet{faintTitleBack}{titleBackColor!10!bgcolor}
 \colorlet{faintredBack}{redBackColor!33!bgcolor}
-\newlength{\boxseppadding}
-\setlength{\boxseppadding}{3pt}
+\xdefinecolor{niceYellow}{HTML}{FFBC0A}
 
 \colorlet{YellowGreen}{yellow!50!green} % todo
 
+\newlength{\boxseppadding}
+\setlength{\boxseppadding}{3pt}
 \newlength{\leftpadding}
 \setlength{\leftpadding}{3pt}
 \newlength{\rightpadding}
 \setlength{\rightpadding}{\leftpadding}
+\newlength{\toppadding}
+\setlength{\toppadding}{3pt}
+\newlength{\botmpadding}
+\setlength{\botmpadding}{\toppadding}
 \newcommand{\tcbBoxWidthMult}{0.95}
 
 \newtcolorbox{aufgabe}{%
@@ -26,10 +31,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     enforce breakable=true,
     colbacktitle=titleBackColor,
 }
@@ -44,9 +50,10 @@
     arc=0pt,
     boxsep =0pt,
     left   =\leftpadding,
+    middle =\boxseppadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
 }
@@ -64,20 +71,21 @@
     boxrule=.75pt,
     arc=3pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     title={Nebenrechnung},
     colbacktitle=titleBackColor,
+    halign=left,
 }
 
 \newtcolorbox{frage}{
     enhanced,
     skin=bicolor,
     lower separated=true,
-    middle=0pt,
     colback=red!60!txcolor,
     colbacklower=green!50!txcolor,
     colframe=frameColor,
@@ -87,10 +95,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
 }
@@ -102,10 +111,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     subtitle style={colback=green!50!txcolor,boxrule=0pt}
     colbacktitle=titleBackColor,
@@ -118,10 +128,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
 }
@@ -137,10 +148,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     title = \textbf{Satz \arabic{satzNumber}} ~{#1} \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} {#1}},
     coltitle=txcolor,
@@ -153,8 +165,8 @@
     enhanced,
     skin=bicolor,
     lower separated=true,
-    middle=0pt,
     colbacklower=grayBackColor,
+    halign=left,
 }
 
 \AtBeginEnvironment{satz}{\satzEquations}
@@ -189,14 +201,16 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     title = \textbf{Beweis \arabic{proofNumber}} ~{#1}  \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{definitionNumber} {#1}},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
+    halign=left,
 }
 
 \AtBeginEnvironment{proof}{\proofEquations}
@@ -231,17 +245,19 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
-    breakable=true,
+    top    =\toppadding,
+    bottom =\botmpadding,
+    breakable=false,
     title = \textbf{Definition \arabic{definitionNumber}} ~{#1}  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} {#1}},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
     title style={
         boxsep=10pt,
     },
+    halign=left,
 }
 
 \AtBeginEnvironment{definition}{\definitionEquations}
@@ -267,35 +283,43 @@
 }
 
 \newtcolorbox{wichtig}{
-    colback=grayBackColor, colframe=frameColor, coltext=txcolor,
+    colback=grayBackColor,
+    colframe=frameColor,
+    coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
 }
 
-\newtcolorbox{anmerkung}{
+\newtcolorbox{anmerkung}[1][]{
     width=\tcbBoxWidthMult\linewidth,
     center,
-    colback=faintredBack, colframe=frameColor, coltext=txcolor,
+    coltitle=txcolor,
+    colback=niceYellow!10!faintredBack,
+    colframe=frameColor,
+    coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
         colframe=HKS51, colback=bgcolor, boxsep=0pt},
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = Anmerkung: #1,
 }
 
 \xdefinecolor{notBrightGreen}{rgb}{0.2, 0.9, 0.2}
@@ -308,10 +332,9 @@
     enhanced,
     skin=bicolor,
     lower separated=true,
-    before upper = \vspace{2pt},
-    middle=0pt,
-    colback=orange!25!bgcolor,
-    colbacklower=notBrightGreen!25!bgcolor,
+    %overlay={\draw[tcbcolframe, line width=.75pt] (segmentation.west)--(segmentation.east);},
+    colback=niceYellow!22.5!bgcolor,%orange!25!bgcolor,
+    colbacklower=notBrightGreen!13!bgcolor,
     colframe=frameColor,
     coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
@@ -319,15 +342,17 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     title = \textbf{Beispiel \theexampleNumber} ~{#2} \phantomsection\addcontentsline{toc}{subsection}{\hspace*{0.75em}Beispiel \theexampleNumber~{#2}},
     phantomlabel={#1},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
+    halign=left,
 }
 \renewcommand{\theexampleNumber}{B\arabic{exampleNumber}}
 
@@ -352,10 +377,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     title=\fett{Lösung:},
     coltitle=txcolor,
@@ -369,10 +395,11 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
 }
@@ -384,10 +411,64 @@
     boxrule=.75pt,
     arc=0pt,
     boxsep =\boxseppadding,
+    middle =\boxseppadding,
     left   =\leftpadding,
     right  =\rightpadding,
-    top    =0pt,
-    bottom =0pt,
+    top    =\toppadding,
+    bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+}
+
+\newtcolorbox{slideKiste}[1][\titleTodo]{
+    width=\linewidth,
+    center,
+    colback=bgcolor, colframe=frameColor, coltext=txcolor,
+    highlight math style= {enhanced, %<-- needed for the ’remember’ options
+        colframe=HKS51, colback=bgcolor, boxsep=0pt},
+    boxrule=.75pt,
+    arc=0pt,
+    boxsep =\boxseppadding,
+    middle =\boxseppadding,
+    left   =\leftpadding,
+    right  =\rightpadding,
+    top    =\toppadding,
+    bottom =\botmpadding,
+    breakable=true,
+    title = #1 \phantomsection\addcontentsline{toc}{subsection}{SlideKiste \arabic{slideKisteNumber} #1},
+    coltitle=txcolor,
+    colbacktitle=titleBackColor,
+%    before upper = \tcbsubtitle{\textbf{SlideKiste \arabic{slideKisteNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{SlideKiste \arabic{slideKisteNumber} #1}},
+    before lower = \tcbsubtitle{\textbf{Lower:}},
+    subtitle style = {
+        frame empty,
+    },
+    enhanced,
+    skin=bicolor,
+    lower separated=true,
+    colbacklower=bgcolor,
+    halign=left,
+}
+
+\AtBeginEnvironment{slideKiste}{\slideKisteEquations}
+\AtEndEnvironment{slideKiste}{\restoreslideKisteequations}
+\newcounter{slideKistesavedequation}
+\newcounter{slideKisteNumber}
+\setcounter{slideKisteNumber}{0}
+
+\newcommand{\slideKisteEquations}{%
+  \setcounter{slideKistesavedequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \stepcounter{slideKisteNumber}
+  \renewcommand{\theequation}{K\/\arabic{slideKisteNumber}--\arabic{equation}}%
+}
+
+\newcommand{\restoreslideKisteequations}{%
+  \setcounter{equation}{\value{slideKistesavedequation}}%
+}
+
+\AtBeginEnvironment{slideKiste}{
+    \if@eqInTOC
+        \renewcommand{\addequation}{\phantomsection\addcontentsline{toc}{subsubsection}{Gleichung \theequation}}
+    \fi
 }

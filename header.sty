@@ -222,7 +222,7 @@
     right=\somedistanceLeft,
     top=\somedistanceTop,
     bottom=.6\somedistanceTop,
-    headheight=5pt,
+    headheight=15pt,
     footskip=25pt,
 }
 
@@ -743,6 +743,21 @@
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
+% https://tex.stackexchange.com/a/553021/202560
+\makeatletter
+\newcommand{\Cen}[1]{%
+  \ifmeasuring@
+  \else
+    \dimen0=\ifcase1\maxcolumn@widths\fi
+    \dimen2=\ifcase2\maxcolumn@widths\fi
+    \makebox[0pt][r]{\makebox[\dimexpr(\width+\dimen0-\dimen2)/2][l]{$\displaystyle#1$}}%
+  \fi
+}
+\makeatother
+
+
+
 %load last
 \RequirePackage[colorlinks = false]{hyperref}
 \endinput
