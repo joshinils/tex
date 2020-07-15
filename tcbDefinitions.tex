@@ -135,6 +135,7 @@
     bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = {\todo[remove]},
 }
 
 \def\titleTodo{{\todo[gleichung oder benennung als titel]}}
@@ -298,11 +299,13 @@
     bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = {\todo[remove]},
 }
 
 \newtcolorbox{anmerkung}[1][]{
     width=\tcbBoxWidthMult\linewidth,
     center,
+    halign=flush left,
     coltitle=txcolor,
     colback=niceYellow!10!faintredBack,
     colframe=frameColor,
@@ -386,6 +389,7 @@
     title=\fett{Lösung:},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
+    title = {\todo[remove]},
 }
 
 \newtcolorbox{orangecolorbox}{
@@ -402,6 +406,7 @@
     bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = {\todo[remove]},
 }
 
 \newtcolorbox{lightgraycolorbox}{
@@ -418,6 +423,7 @@
     bottom =\botmpadding,
     breakable=true,
     colbacktitle=titleBackColor,
+    title = {\todo[remove]},
 }
 
 \newtcolorbox{slideKiste}[1][\titleTodo]{
