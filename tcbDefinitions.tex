@@ -129,6 +129,7 @@
 \def\titleTodo{{\todo[gleichung oder benennung als titel]}}
 \newtcolorbox{satz}[1][\titleTodo]{
     width=\tcbBoxWidthMult\linewidth,
+    halign=flush left,
     flush left,
     colback=grayBackColor, colframe=frameColor, coltext=txcolor,
     highlight math style= {enhanced, %<-- needed for the ’remember’ options
@@ -141,10 +142,10 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1},
+    title = \textbf{Satz \arabic{satzNumber}} ~{#1} \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} {#1}},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
-%    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber}} ~#1 \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} #1}},
+%    before upper = \tcbsubtitle{\textbf{Satz \arabic{satzNumber}} ~{#1} \phantomsection\addcontentsline{toc}{subsection}{Satz \arabic{satzNumber} {#1}}},
     before lower = \tcbsubtitle{\textbf{Beweis:}},
     subtitle style = {
         frame empty,
@@ -193,7 +194,7 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beweis \arabic{proofNumber}} ~#1  \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{definitionNumber} #1},
+    title = \textbf{Beweis \arabic{proofNumber}} ~{#1}  \phantomsection\addcontentsline{toc}{subsection}{Beweis \arabic{definitionNumber} {#1}},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
 }
@@ -235,7 +236,7 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Definition \arabic{definitionNumber}} ~#1  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} #1},
+    title = \textbf{Definition \arabic{definitionNumber}} ~{#1}  \phantomsection\addcontentsline{toc}{subsection}{Definition \arabic{definitionNumber} {#1}},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
     title style={
@@ -323,8 +324,8 @@
     top    =0pt,
     bottom =0pt,
     breakable=true,
-    title = \textbf{Beispiel \theexampleNumber} ~#2 \phantomsection\addcontentsline{toc}{subsection}{\hspace*{0.75em}Beispiel \theexampleNumber~#2},
-    phantomlabel=#1,
+    title = \textbf{Beispiel \theexampleNumber} ~{#2} \phantomsection\addcontentsline{toc}{subsection}{\hspace*{0.75em}Beispiel \theexampleNumber~{#2}},
+    phantomlabel={#1},
     coltitle=txcolor,
     colbacktitle=titleBackColor,
 }
